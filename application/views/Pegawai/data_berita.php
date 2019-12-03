@@ -24,13 +24,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1.</th>
-                                <td>Kenaikan Jabatan</td>
-                                <td>22/09/2019</td>
-                                <td>Muhammad Ilham Fhadilah</td>
-                                <td><a class="btn btn-primary detail" href="detail_berita">Lihat Berita</a></td>
-                            </tr>
+                            <?php $no = 1;
+                            foreach ($data_berita as $berita) { ?>
+                                <tr>
+                                    <td scope="row"><?= $no++ ?>.</td>
+                                    <td><?= $berita->judul_berita; ?></td>
+                                    <td><?= $berita->tanggal; ?></td>
+                                    <td><?= $berita->nama; ?></td>
+                                    <td><a class="btn btn-primary detail" href="<?= base_url('pegawai/detail_berita/' . $berita->id_berita) ?>">Lihat Berita</a></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

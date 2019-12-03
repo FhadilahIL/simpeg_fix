@@ -21,7 +21,8 @@ class Auth extends CI_Controller
             if (password_verify($password, $user->password)) {
                 $data_user = array(
                     'nama'      => $user->nama,
-                    'id'        => $user->nik,
+                    'id'        => $user->id_pegawai,
+                    'nik'       => $user->nik,
                     'password'  => $password,
                     'role'      => $user->id_akses,
                     'jabatan'   => $user->nama_jabatan
@@ -33,6 +34,9 @@ class Auth extends CI_Controller
                     $data_user['akses'] = "pegawai.psd";
                 } else if ($data_user['role'] == 3) {
                     $data_user['akses'] = "manager.psd";
+                } else {
+                    $this->session->set_flashdata('pesan', 'User Belum Didaftarkan Hak Aksesnya');
+                    redirect('guest/login_page');
                 }
 
                 $this->session->set_userdata($data_user);

@@ -3,7 +3,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Kenaikan Jabatan</h1>
+                <h1 class="h3 mb-0 text-gray-800"><?= $lihat->judul_berita ?></h1>
             </div>
 
             <!-- Content Row -->
@@ -11,13 +11,12 @@
 
                 <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-11 col-md-11 mb-4">
-                    <img class="gambar-berita" src="<?= base_url('assets/img/kenaikan_jabatan.jpg') ?>" alt="">
+                    <img class="gambar-berita" src="<?= base_url('assets/img/') . $lihat->nama_gambar ?>" alt="">
                 </div>
                 <div class="col-xl-11 col-md-11 mb-4">
-                    <p>Posted By Muhammad Ilham Fhadilah</p>
-                    <p>2019/01/08</p>
-                    <p>Logo ini dibuat oleh Muhammad Ilham Fhadilah sejak dia mengenal musik EDM. dan lagu yang
-                        didengarnya adalah lagu alan walker yang berjudul "Alone"</p>
+                    <p>Posted By <?= $lihat->nama ?></p>
+                    <p><?= $lihat->tanggal ?></p>
+                    <p><?= $lihat->isi_berita ?></p>
                 </div>
                 <!-- Content Row -->
             </div>

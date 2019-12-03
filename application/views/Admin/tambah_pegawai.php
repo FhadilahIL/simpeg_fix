@@ -7,76 +7,76 @@
     </div>
 
     <!-- Content Row -->
-    <form>
+    <form action="<?= base_url('admin/input_data') ?>" method="post">
         <div class="form-group">
             <label for="exampleInputNIK">NIK</label>
-            <input type="email" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK">
+            <input type="text" name="nik" maxlength="16" class="form-control" placeholder="Enter your NIK">
         </div>
         <div class="form-group">
             <label for="exampleInputNama">Nama Lengkap</label>
-            <input type="email" class="form-control" id="exampleInputNama" placeholder="Masukan Nama Lengkap">
+            <input type="text" name="nama" class="form-control" placeholder="Masukan Nama Lengkap">
         </div>
         <div class="form-group">
             <label for="exampleInputEmail">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail" placeholder="Enter your NIK">
+            <input type="email" name="email" class="form-control" placeholder="Enter your Email">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword">Password</label>
-            <input type="email" class="form-control" id="exampleInputPassword" placeholder="Enter your Password">
+            <input type="password" name="password" class="form-control" placeholder="Enter your Password">
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextareaAlamat">Alamat</label>
-            <textarea class="form-control" id="exampleFormControlTextareaAlamat" rows="5">Enter Your Address</textarea>
+            <textarea class="form-control" name="alamat" rows="5" placeholder="Enter Your Address"></textarea>
         </div>
         <div class="form-row mb-3">
             <div class="col-4">
                 <label for="exampleFormControlTextareaAlamat">Jenis Kelamin</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Laki - Laki</option>
-                    <option>Perempuan</option>
+                <select class="form-control" name="jenis_kelamin">
+                    <option value="L">Laki - Laki</option>
+                    <option value="P">Perempuan</option>
                 </select>
             </div>
             <div class="col-4">
                 <label for="exampleFormControlTextareaAlamat">Pendidikan</label>
-                <select id="inputState" class="form-control">
-                    <option selected>SMA</option>
-                    <option>D3</option>
-                    <option>D4</option>
-                    <option>S1</option>
-                    <option>S2</option>
-                    <option>S3</option>
+                <select class="form-control" name="pendidikan">
+                    <option value="SMA">SMA</option>
+                    <option value="D3">D3</option>
+                    <option value="D4">D4</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
                 </select>
             </div>
             <div class="col-4">
-                <label for="exampleFormControlTextareaAlamat">Jabatan</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Admin</option>
-                    <option>Pegawai</option>
-                    <option>Atasan</option>
+                <label for="exampleFormControlTextareaAlamat">Status Perkawinan</label>
+                <select class="form-control" name="status">
+                    <option value="Belum Menikah">Belum Menikah</option>
+                    <option value="Menikah">Menikah</option>
                 </select>
             </div>
         </div>
         <div class="form-row mb-3">
             <div class="col-4">
-                <label for="exampleFormControlTextareaAlamat">Status Perkawinan</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Belum Menikah</option>
-                    <option>Menikah</option>
+                <label for="exampleFormControlTextareaAlamat">Agama</label>
+                <select class="form-control" name="agama">
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katholik">Katholik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Budha">Budha</option>
                 </select>
             </div>
             <div class="col-4">
-                <label for="exampleFormControlTextareaAlamat">Agama</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Islam</option>
-                    <option>Kristen</option>
-                    <option>Katholik</option>
-                    <option>Hindu</option>
-                    <option>Budha</option>
+                <label for="exampleFormControlTextareaAlamat">Jabatan</label>
+                <select class="form-control" name="jabatan">
+                    <?php foreach ($jabatan as $jabatan) { ?>
+                        <option value="<?= $jabatan->id_jabatan ?>"><?= $jabatan->nama_jabatan ?></option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="col-4">
                 <label for="exampleFormControlTextareaAlamat">No. Handphone</label>
-                <input type="text" class="form-control" id="inputNoHp">
+                <input type="text" name="no_telp" class="form-control">
             </div>
         </div>
         <div class="form-group">

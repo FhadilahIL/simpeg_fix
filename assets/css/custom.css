@@ -1,170 +1,174 @@
   .login-top {
-    margin-top: 100px;
+  	margin-top: 100px;
   }
 
   .table-responsive-lg {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  	display: block;
+  	width: 100%;
+  	overflow-x: auto;
+  	-webkit-overflow-scrolling: touch;
   }
 
   .table-responsive-lg>.table-bordered {
-    border: 0;
+  	border: 0;
   }
 
   .brand {
-    font-size: 20pt;
-    margin-top: -5%;
+  	font-size: 20pt;
+  	margin-top: -5%;
   }
 
   .gambar-berita-guest {
-    width: 100%;
+  	width: 100%;
   }
 
   .judul-berita-guest {
-    margin-top: 7%;
+  	margin-top: 7%;
   }
 
   .isi-berita-guest {
-    margin-bottom: 10%;
+  	margin-bottom: 10%;
   }
 
   .search {
-    margin-right: -100px !important;
+  	margin-right: -100px !important;
   }
 
   .table {
-    min-width: 100%;
+  	min-width: 100%;
   }
 
   .judul-berita-index {
-    min-width: 500px;
+  	min-width: 500px;
   }
 
   .judul-keterangan-index {
-    min-width: 200px;
+  	min-width: 200px;
   }
 
   .gambar-berita {
-    width: 100%;
+  	width: 100%;
   }
 
   .nik {
-    min-width: 100px;
+  	min-width: 100px;
   }
 
   .nama-pegawai {
-    min-width: 300px;
+  	min-width: 300px;
   }
 
   .jabatan {
-    min-width: 120px;
+  	min-width: 120px;
   }
 
   .keterangan {
-    min-width: 150px;
+  	min-width: 150px;
   }
 
   .judul-berita {
-    min-width: 300px;
+  	min-width: 300px;
   }
 
   .tanggal-berita {
-    min-width: 70px;
+  	min-width: 70px;
   }
 
   .author-berita {
-    min-width: 300px;
+  	min-width: 300px;
   }
 
   .cari-pegawai {
-    margin-left: -30%;
+  	margin-left: -30%;
   }
 
   .p-judul-dashboard {
-    font-size: 27pt;
+  	font-size: 27pt;
   }
 
   .detail-atasan {
-    width: 80px;
+  	width: 80px;
   }
 
   .cari-pegawai-atasan {
-    margin-left: -33%;
+  	margin-left: -33%;
   }
 
   .search-pegawai-atasan {
-    min-width: 100%;
-    margin-left: 100%;
+  	min-width: 100%;
+  	margin-left: 100%;
   }
 
   .carousel-berita {
-    margin-top: 10%;
+  	margin-top: 10%;
   }
 
   @media (max-width: 992px) {
-    .detail {
-      font-size: 11px;
+  	.detail {
+  		font-size: 11px;
 
-    }
+  	}
 
-    .judul-berita-index {
-      min-width: 300px;
-    }
+  	.judul-berita-index {
+  		min-width: 300px;
+  	}
 
-    .tombol-tambah {
-      font-size: 11px;
-    }
+  	.font-notify {
+  		font-size: 9pt;
+  	}
 
-    .form-inline .cari-pegawai {
-      font-size: 11px;
-      margin-left: -40%;
-    }
+  	.tombol-tambah {
+  		font-size: 11px;
+  	}
 
-    .form-inline .tombol-cari-pegawai {
-      font-size: 11px;
-      margin-left: 2%;
-      margin-top: 1px;
-    }
+  	.form-inline .cari-pegawai {
+  		font-size: 11px;
+  		margin-left: -40%;
+  	}
 
-    .copyright span {
-      font-size: 8.1pt;
-    }
+  	.form-inline .tombol-cari-pegawai {
+  		font-size: 11px;
+  		margin-left: 2%;
+  		margin-top: 1px;
+  	}
 
-    .tombol-detail-atasan {
-      min-width: 200px;
-    }
+  	.copyright span {
+  		font-size: 8.1pt;
+  	}
 
-    .detail-atasan {
-      width: 80px;
-      font-size: 10pt;
-    }
+  	.tombol-detail-atasan {
+  		min-width: 200px;
+  	}
 
-    .tanggal-cuti-atasan {
-      min-width: 100pt;
-    }
+  	.detail-atasan {
+  		width: 80px;
+  		font-size: 10pt;
+  	}
 
-    .cari-pegawai-atasan {
-      font-size: 11px;
-      margin-left: -40%;
-      width: 120pt;
-    }
+  	.tanggal-cuti-atasan {
+  		min-width: 100pt;
+  	}
 
-    .search-pegawai-atasan {
-      min-width: 250px;
-      margin-left: 70%;
-    }
+  	.cari-pegawai-atasan {
+  		font-size: 11px;
+  		margin-left: -40%;
+  		width: 120pt;
+  	}
 
-    .judul-berita-guest {
-      margin-top: 13%;
-    }
+  	.search-pegawai-atasan {
+  		min-width: 250px;
+  		margin-left: 70%;
+  	}
 
-    .isi-berita-guest {
-      margin-bottom: 80px;
-    }
+  	.judul-berita-guest {
+  		margin-top: 13%;
+  	}
 
-    .carousel-berita {
-      margin-top: 13%;
-    }
+  	.isi-berita-guest {
+  		margin-bottom: 80px;
+  	}
+
+  	.carousel-berita {
+  		margin-top: 13%;
+  	}
   }

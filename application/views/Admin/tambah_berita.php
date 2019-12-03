@@ -8,15 +8,15 @@
             <form action="<?= base_url('admin/input_news') ?>" method="post">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Judul Berita</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="judul">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Isi Berita</label>
-                    <textarea type="text" class="form-control" rows="5"></textarea>
+                    <textarea type="text" class="form-control" rows="5" name="isi"></textarea>
                 </div>
                 <div class="form-group mb-3">
                     <label for="exampleInputEmail1">Pilih Gambar</label>
-                    <input type="file" class="form-control-file" name="gambar" data-toggle="modal" data-target="#gambar">
+                    <input type="file" class="form-control-file" name="gambar">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block">Publish</button>

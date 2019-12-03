@@ -16,7 +16,6 @@
                             <div class="card-body">
                                 <h5 class="card-title"><?= $data[0]; ?></h5>
                                 <p class="card-text"><?= $data[1]; ?> Orang</p>
-                                <a href="<?= $data[2]; ?>" class="btn btn-primary btn-block">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -39,7 +38,7 @@
                                     <tr>
                                         <td scope="row"><?= $no++; ?></td>
                                         <td><?= $news->judul_berita; ?></td>
-                                        <td><a class="btn btn-primary detail" href="admin/detail_berita">Detail Berita</a></td>
+                                        <td><a class="btn btn-primary detail" href="<?= base_url('admin/detail_berita/' . $news->id_berita) ?>">Detail Berita</a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>

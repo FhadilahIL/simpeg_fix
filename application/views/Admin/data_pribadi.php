@@ -26,7 +26,7 @@
         <form action="<?= base_url('admin/update_data') ?>" method="post">
             <div class="form-group">
                 <label for="exampleInputNIK">NIK</label>
-                <input type="text" name="nik" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK" value="<?= $this->session->userdata('id'); ?>" readonly>
+                <input type="text" name="nik" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK" value="<?= $this->session->userdata('nik'); ?>" readonly>
             </div>
             <div class="form-group">
                 <label for="exampleInputNama">Nama Lengkap</label>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword">Password</label>
-                <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Enter your Password" value="<?= $this->session->userdata('password'); ?>">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="" value="">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextareaAlamat">Alamat</label>

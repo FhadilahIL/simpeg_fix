@@ -35,7 +35,7 @@
                                     <td><?= $daftar->judul_berita; ?></td>
                                     <td><?= $daftar->tanggal; ?></td>
                                     <td>Muhammad Ilham Fhadilah</td>
-                                    <td><a class="btn btn-primary detail" href="<?= base_url('admin/detail_berita') ?>">Detail</a> <a class="btn btn-primary detail" href="<?= base_url('admin/ubah_berita') ?>">Edit</a></td>
+                                    <td><a class="btn btn-primary detail" href="<?= base_url('admin/detail_berita/' . $daftar->id_berita) ?>">Detail</a> <a class="btn btn-primary detail" href="<?= base_url('admin/ubah_berita/') . $daftar->id_berita ?>">Edit</a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

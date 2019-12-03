@@ -13,7 +13,7 @@
                         <label for="NIK">NIK</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="NIM">2016140993</label>
+                        <label for="NIM"><?= $detail->nik ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -21,7 +21,7 @@
                         <label for="Nama">Nama Lengkap</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="Nama">Muhammad Ilham Fhadilah</label>
+                        <label for="Nama"><?= $detail->nama ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -29,7 +29,7 @@
                         <label for="email">Email</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="email">ilhammahier@gmail.com</label>
+                        <label for="email"><?= $detail->email ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -37,7 +37,7 @@
                         <label for="alamat">Alamat</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="alamat">Kp. Setu Rt. 02/01 No. 53 Kel. Buaran</label>
+                        <label for="alamat"><?= $detail->alamat ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -45,7 +45,7 @@
                         <label for="jenisKelamin">Jenis Kelamin</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="jenisKelamin">Laki - Laki</label>
+                        <label for="jenisKelamin"><?= $jenis_kelamin; ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -53,7 +53,7 @@
                         <label for="pendidikan">Pendidikan</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="pendidikan">S1</label>
+                        <label for="pendidikan"><?= $detail->pendidikan ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -61,7 +61,7 @@
                         <label for="statusPerkawinan">Status Perkawinan</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="statusPerkawinan">Menikah</label>
+                        <label for="statusPerkawinan"><?= $detail->status ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -69,7 +69,7 @@
                         <label for="jabatan">Jabatan</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="jabatan">Admin</label>
+                        <label for="jabatan"><?= $detail->nama_jabatan ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -77,7 +77,7 @@
                         <label for="agama">Agama</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="agama">Islam</label>
+                        <label for="agama"><?= $detail->agama ?></label>
                     </div>
                 </div>
                 <div class="form-row mt-5">
