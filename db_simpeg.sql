@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2019 at 07:56 AM
+-- Generation Time: Dec 05, 2019 at 07:17 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -32,7 +32,7 @@ CREATE TABLE `berita` (
   `id_berita` int(11) NOT NULL,
   `id_pegawai` int(11) NOT NULL,
   `judul_berita` varchar(30) NOT NULL,
-  `nama_gambar` text NOT NULL,
+  `nama_gambar_berita` text NOT NULL,
   `tanggal` date NOT NULL,
   `isi_berita` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -41,9 +41,9 @@ CREATE TABLE `berita` (
 -- Dumping data for table `berita`
 --
 
-INSERT INTO `berita` (`id_berita`, `id_pegawai`, `judul_berita`, `nama_gambar`, `tanggal`, `isi_berita`) VALUES
-(16, 1, 'Kenaikan Jabatan', 'Kenaikan_Jabatan1111575369187.jpg', '2019-12-03', 'MNN'),
-(17, 1, 'Kenaikan Gaji', 'Kenaikan_Gaji_1575477724.jpg', '2019-12-04', 'Kenaikan Gaji Isi');
+INSERT INTO `berita` (`id_berita`, `id_pegawai`, `judul_berita`, `nama_gambar_berita`, `tanggal`, `isi_berita`) VALUES
+(18, 1, 'Kenaikan Jabatan', '<p>You did not select a file to upload.</p>', '2019-12-05', 'igiigigighh'),
+(19, 1, 'Kenaikan Gaji', 'Kenaikan_Gaji.jpg', '2019-12-05', 'ajjdadjkada');
 
 -- --------------------------------------------------------
 
@@ -152,7 +152,13 @@ INSERT INTO `logs` (`id_logs`, `kegiatan`, `waktu`, `id_pegawai`) VALUES
 (7, 'Loggin', '2019-12-04', 1),
 (8, 'Loggin', '2019-12-04', 1),
 (9, 'Loggin', '2019-12-05', 5),
-(10, 'Loggin', '2019-12-05', 3);
+(10, 'Loggin', '2019-12-05', 3),
+(11, 'Loggin', '2019-12-05', 5),
+(12, 'Loggin', '2019-12-05', 5),
+(13, 'Loggin', '2019-12-05', 5),
+(14, 'Loggin', '2019-12-05', 1),
+(15, 'Loggin', '2019-12-05', 5),
+(16, 'Loggin', '2019-12-05', 3);
 
 -- --------------------------------------------------------
 
@@ -172,6 +178,7 @@ CREATE TABLE `users` (
   `status` varchar(15) NOT NULL,
   `password` varchar(60) NOT NULL,
   `no_telp` varchar(13) NOT NULL,
+  `nama_gambar_profile` text NOT NULL,
   `id_jabatan` int(11) NOT NULL,
   `tanggal_masuk` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -180,10 +187,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_pegawai`, `nik`, `nama`, `alamat`, `agama`, `jenis_kelamin`, `pendidikan`, `email`, `status`, `password`, `no_telp`, `id_jabatan`, `tanggal_masuk`) VALUES
-(1, '3674010801990005', 'Muhammad Ilham Fhadilah', 'Kp. Setu Rt. 02/01 No. 53 Kel. Buaran, Kec. Serpong, Tangerang Selatan', 'Islam', 'L', 'S1', 'admin-ilham@simpeg.com', 'Menikah', '$2y$10$rsmjcMVWpuxC.huS7qDy/uvjvhNYr0jcfZUUg9sYYFzVBA2JS86GK', '089677186962', 1, '2019-11-04'),
-(3, '3674000101990005', 'Bagas Kurniawaan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$CcszNb6rhFk9ezJl5T47d.3xXmT3AhEAKSnVqmjOUKGWWjMMmQpoW', '089677186964', 3, '2019-11-28'),
-(5, '3674000101990006', 'Aris Indrawan', 'Serang, Banten', 'Islam', 'L', 'SMA', 'pegawai-aris@simpeg.com', 'Belum Menikah', '$2y$10$VthU12f.3s2KPUiihyqCEOuJgSfqmDsQXGea8d0I3NqFThG8viVD2', '089677186967', 2, '2019-11-28');
+INSERT INTO `users` (`id_pegawai`, `nik`, `nama`, `alamat`, `agama`, `jenis_kelamin`, `pendidikan`, `email`, `status`, `password`, `no_telp`, `nama_gambar_profile`, `id_jabatan`, `tanggal_masuk`) VALUES
+(1, '3674010801990005', 'Muhammad Ilham Fhadilah', 'Kp. Setu Rt. 02/01 No. 53 Kel. Buaran, Kec. Serpong, Tangerang Selatan', 'Islam', 'L', 'S3', 'admin-ilham@simpeg.com', 'Belum Menikah', '$2y$10$rsmjcMVWpuxC.huS7qDy/uvjvhNYr0jcfZUUg9sYYFzVBA2JS86GK', '089677186962', 'default.svg', 1, '2019-11-04'),
+(3, '3674000101990005', 'Bagas Kurniawan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$CcszNb6rhFk9ezJl5T47d.3xXmT3AhEAKSnVqmjOUKGWWjMMmQpoW', '089677186964', 'default.svg', 3, '2019-11-28'),
+(5, '3674000101990006', 'Aris Indrawan', 'Cikande, Serang, Banten', 'Islam', 'L', 'SMA', 'pegawai-aris@simpeg.com', 'Menikah', '$2y$10$gUa9xuB5USOtuT.ob98j5exeeLQxRy83.uu3b2l.3jMybM97nUh/C', '089677186967', 'default.svg', 2, '2019-11-28');
 
 --
 -- Indexes for dumped tables
@@ -256,7 +263,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `cuti`
@@ -292,7 +299,7 @@ ALTER TABLE `keluarga`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -303,6 +310,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `berita`
+--
+ALTER TABLE `berita`
+  ADD CONSTRAINT `berita_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cuti`
