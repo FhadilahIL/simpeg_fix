@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2019 at 06:56 AM
+-- Generation Time: Dec 05, 2019 at 07:56 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -150,7 +150,9 @@ INSERT INTO `logs` (`id_logs`, `kegiatan`, `waktu`, `id_pegawai`) VALUES
 (5, 'Loggin', '2019-12-04', 1),
 (6, 'Loggin', '2019-12-04', 1),
 (7, 'Loggin', '2019-12-04', 1),
-(8, 'Loggin', '2019-12-04', 1);
+(8, 'Loggin', '2019-12-04', 1),
+(9, 'Loggin', '2019-12-05', 5),
+(10, 'Loggin', '2019-12-05', 3);
 
 -- --------------------------------------------------------
 
@@ -180,8 +182,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_pegawai`, `nik`, `nama`, `alamat`, `agama`, `jenis_kelamin`, `pendidikan`, `email`, `status`, `password`, `no_telp`, `id_jabatan`, `tanggal_masuk`) VALUES
 (1, '3674010801990005', 'Muhammad Ilham Fhadilah', 'Kp. Setu Rt. 02/01 No. 53 Kel. Buaran, Kec. Serpong, Tangerang Selatan', 'Islam', 'L', 'S1', 'admin-ilham@simpeg.com', 'Menikah', '$2y$10$rsmjcMVWpuxC.huS7qDy/uvjvhNYr0jcfZUUg9sYYFzVBA2JS86GK', '089677186962', 1, '2019-11-04'),
-(3, '3674000101990005', 'Bagas Kurniawaan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$Fi7nJIvj3f/ErULB/v/CheaquvTFg1f9O4w1jITDijfORNMWm27OW', '089677186964', 3, '2019-11-28'),
-(5, '3674000101990006', 'Aris Indrawan', 'Serang, Banten', 'Islam', 'L', 'SMA', 'pegawai-aris@simpeg.com', 'Belum Menikah', '$2y$10$TfKmSXZpc/kRUOs93GkE7ev5vjyt3amp6shyES8IdMu3jtd2R11/S', '089677186967', 2, '2019-11-28');
+(3, '3674000101990005', 'Bagas Kurniawaan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$CcszNb6rhFk9ezJl5T47d.3xXmT3AhEAKSnVqmjOUKGWWjMMmQpoW', '089677186964', 3, '2019-11-28'),
+(5, '3674000101990006', 'Aris Indrawan', 'Serang, Banten', 'Islam', 'L', 'SMA', 'pegawai-aris@simpeg.com', 'Belum Menikah', '$2y$10$VthU12f.3s2KPUiihyqCEOuJgSfqmDsQXGea8d0I3NqFThG8viVD2', '089677186967', 2, '2019-11-28');
 
 --
 -- Indexes for dumped tables
@@ -290,7 +292,7 @@ ALTER TABLE `keluarga`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
