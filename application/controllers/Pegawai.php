@@ -11,7 +11,6 @@ class Pegawai extends CI_Controller
         }
         $this->load->model('User');
         $this->load->model('News');
-        // $this->load->library('Encryption');
     }
 
     function index()
@@ -25,10 +24,13 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
+        $data['data_berita'] = $this->News->tampil_berita_index()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
-        $this->load->view('pegawai/index');
+        $this->load->view('pegawai/index', $data);
         $this->load->view('templates/footer');
     }
 
@@ -103,6 +105,8 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['detail'] = $this->User->detail_pegawai($username)->row();
         if ($data['detail']->jenis_kelamin === "L") {
             $data['jenis_kelamin'] = "Laki - Laki";
@@ -118,6 +122,8 @@ class Pegawai extends CI_Controller
 
     function detail_cuti()
     {
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['judul_halaman'] = "Pegawai - Detail Cuti";
         $data['active'] = "";
         $data['dashboard'] = base_url('pegawai');
@@ -136,6 +142,8 @@ class Pegawai extends CI_Controller
 
     function tambah_cuti()
     {
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['judul_halaman'] = "Pegawai - Tambah Cuti";
         $data['active'] = "";
         $data['dashboard'] = base_url('pegawai');
@@ -154,6 +162,8 @@ class Pegawai extends CI_Controller
 
     function data_berita()
     {
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['judul_halaman'] = "Pegawai - Data Berita";
         $data['active'] = "";
         $data['dashboard'] = base_url('pegawai');
@@ -171,6 +181,23 @@ class Pegawai extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    function upload_gambar($nama)
+    {
+        $config['upload_path']          = './assets/img/berita/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['file_name']            = $nama;
+        $config['max_size']             = 1024;
+        $config['overwrite']            = true;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar')) {
+            return $this->upload->data('file_name');
+        } else {
+            return $this->upload->display_errors();
+        }
+    }
+
     function detail_berita($id_berita)
     {
         $id_berita = $this->uri->segment(3);
@@ -183,19 +210,21 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), 'active', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['detail_berita'] = $this->News->tampil_berita($id_berita)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
-        $this->load->view('pegawai/detail_berita', $data);
+        $this->load->view('pegawai/detail_berita');
         $this->load->view('templates/footer');
     }
 
     function update_data()
     {
-        $id = $this->input->post('id');
         $nik = $this->input->post('nik');
         $password_plain = $this->input->post('password');
+        $gambar = $this->input->post('gambar');
         if ($password_plain != "") {
             $data = array(
                 'nama' => $this->input->post('nama'),
@@ -220,9 +249,13 @@ class Pegawai extends CI_Controller
                 'no_telp' => $this->input->post('no_telp')
             );
         }
+        if ($gambar) {
+            $data = ['nama_gambar_profile' => $this->upload_gambar('profile_' . $nik)];
+        }
+        print_r($data);
+        die;
 
-        if ($data > 0) {
-            $this->User->update_data($data, $id);
+        if ($this->User->update_data($data, $nik)) {
             // $data = $this->User->detail_pegawai($username)->row();
             $this->session->set_flashdata('pesan_berhasil', 'Data Berhasil Di Ubah');
             redirect(base_url('pegawai/data_pribadi/' . $nik));

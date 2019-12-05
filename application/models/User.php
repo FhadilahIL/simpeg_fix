@@ -83,6 +83,11 @@ class User extends CI_Model
 
     function cari_nama($nama)
     {
-        return $this->db->query("SELECT * FROM `users` INNER JOIN jabatan ON jabatan.id_jabatan = users.id_jabatan WHERE nama LIKE '%$nama%'");
+        return $this->db->query("SELECT * FROM `users` INNER JOIN jabatan ON jabatan.id_jabatan = users.id_jabatan WHERE nama LIKE '%$nama%' OR nik LIKE '%$nama%'");
+    }
+
+    function cari_nama_manager($nama)
+    {
+        return $this->db->query("SELECT * FROM `users` INNER JOIN jabatan ON jabatan.id_jabatan = users.id_jabatan WHERE nama LIKE '%$nama%' OR nik LIKE '%$nama%'");
     }
 }

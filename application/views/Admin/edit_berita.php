@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="exampleInputEmail1">Pilih Gambar</label>
-                    <input type="file" class="form-control-file" value="">
+                    <input type="file" class="form-control-file" name="gambar">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block">Update and Publish</button>

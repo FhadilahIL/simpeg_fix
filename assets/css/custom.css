@@ -71,7 +71,7 @@
   }
 
   .tanggal-berita {
-  	min-width: 70px;
+  	min-width: 200px;
   }
 
   .author-berita {
@@ -106,7 +106,10 @@
   @media (max-width: 992px) {
   	.detail {
   		font-size: 11px;
+  	}
 
+  	td .tanggal-berita {
+  		min-width: 1000px;
   	}
 
   	.judul-berita-index {

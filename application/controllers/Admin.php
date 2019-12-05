@@ -34,6 +34,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -52,6 +54,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['daftar_pegawai'] = $this->User->get_pegawai()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -71,6 +75,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['jabatan'] = $this->Jabatan->get_jabatan()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -90,6 +96,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), 'active', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -108,6 +116,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['daftar_berita'] = $this->News->daftar_berita()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -127,6 +137,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -145,8 +157,10 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
-        $id = $this->uri->segment(3);
-        $data['pegawai'] = $this->User->detail_pegawai($id)->row();
+        $id = $this->session->userdata('nik');
+        $id_pegawai = $this->uri->segment(3);
+        $data['user'] = $this->User->cari_user($id)->row();
+        $data['pegawai'] = $this->User->detail_pegawai($id_pegawai)->row();
         if ($data['pegawai']->agama == "Islam") {
             $data['agama'] = ['selected', '', '', '', ''];
         } elseif ($data['pegawai']->agama == "Kristen") {
@@ -202,11 +216,13 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['lihat_berita'] = $this->News->tampil_berita($id_berita)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
-        $this->load->view('admin/edit_berita');
+        $this->load->view('admin/edit_berita', $data);
         $this->load->view('templates/footer');
     }
 
@@ -221,16 +237,18 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $id_berita = $this->uri->segment(3);
         $data['lihat'] = $this->News->tampil_berita($id_berita)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
-        $this->load->view('admin/detail_berita');
+        $this->load->view('admin/detail_berita', $data);
         $this->load->view('templates/footer');
     }
 
-    function data_pribadi($id)
+    function data_pribadi($nik)
     {
         $data['judul_halaman'] = "Admin - Data Pribadi";
         $data['active'] = "";
@@ -242,8 +260,8 @@ class Admin extends CI_Controller
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
 
-        $id = $this->uri->segment(3);
-        $data['user'] = $this->User->cari_user($id)->row();
+        $nik = $this->uri->segment(3);
+        $data['user'] = $this->User->cari_user($nik)->row();
 
         if ($data['user']->agama == "Islam") {
             $data['agama'] = ['selected', '', '', '', ''];
@@ -301,6 +319,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -319,6 +339,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -337,6 +359,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -355,6 +379,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -380,80 +406,67 @@ class Admin extends CI_Controller
             'no_telp' => $this->input->post('no_telp')
         );
 
-        if ($data > 0) {
-            $this->User->update_data($data, $nik);
-            // $data = $this->User->cari_user($nik)->row();
-            $data_user = array(
-                'nama'      => $data->nama,
-                'id'        => $data->nik,
-                'role'      => $data->id_akses,
-                'jabatan'   => $data->nama_jabatan
-            );
-            $this->session->set_userdata($data_user);
-            $this->session->set_flashdata('pesan', 'Data Berhasil Di Ubah');
-            redirect($_SERVER['HTTP_REFERER']);
+        if ($this->User->update_data($data, $nik)) {
+            $this->session->set_flashdata('pesan_berhasil', 'Data Berhasil Di Ubah');
+            redirect(base_url('admin/data_pribadi/') . $nik);
         } else {
-            $this->session->set_flashdata('pesan', 'Data Harus Dilengkapi. Silahkan Isi Data Ulang');
-            redirect($_SERVER['HTTP_REFERER']);
+            $this->session->set_flashdata('pesan_gagal', 'Data Harus Dilengkapi. Silahkan Isi Data Ulang');
+            redirect(base_url('admin/data_pribadi/') . $nik);
         }
     }
 
-    function upload_gambar($nama)
+    function upload_gambar_berita($nama)
     {
         $config['upload_path']          = './assets/img/berita/';
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['allowed_types']        = 'jpg|png|jpeg|pdf';
         $config['file_name']            = $nama;
         $config['max_size']             = 1024;
         $config['overwrite']            = true;
-        // $config['max_width']            = 1024;
-        // $config['max_height']           = 768;
 
         $this->load->library('upload', $config);
 
         if ($this->upload->do_upload('gambar')) {
             return $this->upload->data('file_name');
-        } else { }
+        } else {
+            return $this->upload->display_errors();
+        }
     }
 
     function input_news()
     {
         $data = [
-            'id_berita'     => '',
-            'id_pegawai'    => $this->session->userdata('id'),
-            'judul_berita'  => $this->input->post('judul'),
-            'nama_gambar'   => $this->upload_gambar($this->input->post('judul') . "_" . time()),
-            'tanggal'       => date('Ymd'),
-            'isi_berita'    => $this->input->post('isi')
+            'id_berita'             => '',
+            'id_pegawai'            => $this->session->userdata('id'),
+            'judul_berita'          => $this->input->post('judul'),
+            'nama_gambar_berita'    => $this->upload_gambar_berita($this->input->post('judul')),
+            'tanggal'               => date('Ymd'),
+            'isi_berita'            => $this->input->post('isi')
         ];
         if ($this->News->input_berita($data)) {
-            // $this->News->input_berita($data);
-            $this->session->set_flashdata('pesan', "Berita Behasil di Publish");
+            $this->session->set_flashdata('pesan_berhasil', "Berita Behasil di Publish");
             redirect(base_url('admin/data_berita'));
         }
     }
 
     function edit_berita()
     {
+        $id_berita = $this->input->post('id');
         $data = [
-            'id_berita'     => $this->input->post('id'),
-            'judul_berita'  => $this->input->post('judul'),
-            'isi_berita'    => $this->input->post('isi'),
-            'tanggal'       => date('Ymd'),
-            'id_pegawai'    => $this->session->userdata('id')
+            'judul_berita'          => $this->input->post('judul'),
+            'isi_berita'            => $this->input->post('isi'),
+            // 'nama_gambar_berita'    => $this->upload_gambar_berita($this->input->post('judul')),
+            'tanggal'               => date('Ymd'),
         ];
-        if ($data) {
-            $this->News->update_news($data);
-            $this->session->set_flashdata('pesan', 'Berhasil Update');
+        if ($this->News->update_news($data, $id_berita)) {
+            $this->session->set_flashdata('pesan_berhasil', 'Berhasil Update Berita');
             redirect(base_url('admin/data_berita'));
         }
     }
 
     function edit_pegawai()
     {
-        $id = $this->input->post('id');
         $nik = $this->input->post('nik');
         $data = [
-            'nik'           => $nik,
             'nama'          => $this->input->post('nama'),
             'email'         => $this->input->post('email'),
             'alamat'        => $this->input->post('alamat'),
@@ -463,12 +476,11 @@ class Admin extends CI_Controller
             'agama'         => $this->input->post('agama'),
             'no_telp'       => $this->input->post('no_telp')
         ];
-        if (!$nik == $this->User->cari_nik($nik)->result()) {
-            $this->User->update_data($data, $id);
+        if ($this->User->update_data($data, $nik)) {
             $this->session->set_flashdata('pesan_berhasil', 'Berhasil Update Data');
             redirect(base_url('admin/data_pegawai'));
         } else {
-            $this->session->set_flashdata('pesan_gagal', 'Gagal Update Data. NIK Sudah Ada');
+            $this->session->set_flashdata('pesan_gagal', 'Gagal Update Data. NIK Tidak Ada');
             redirect(base_url('admin/data_pegawai'));
         }
     }
@@ -513,6 +525,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
         ];
+        $id = $this->session->userdata('nik');
+        $data['user'] = $this->User->cari_user($id)->row();
         $data['daftar_pegawai'] = $this->User->cari_nama($nama)->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -524,8 +538,6 @@ class Admin extends CI_Controller
     function cari_nama()
     {
         $nama = $this->input->post('nama');
-        // print_r($data);
-        // die;
         redirect('admin/cari_data/' . $nama);
     }
 }

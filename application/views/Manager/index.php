@@ -35,22 +35,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td>Mark</td>
-                            <td><a class="btn btn-primary detail" href="detail_berita.html">Detail
-                                    Berita</a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">2</td>
-                            <td>Jacob</td>
-                            <td><a class="btn btn-primary detail" href="#">Detail Berita</a></td>
-                        </tr>
-                        <tr>
-                            <td scope="row">3</td>
-                            <td>Larry</td>
-                            <td><a class="btn btn-primary detail" href="#">Detail Berita</a></td>
-                        </tr>
+                        <?php $no = 1;
+                        foreach ($daftar_berita as $daftar) { ?>
+                            <tr>
+                                <td scope="row"><?= $no++ . '.' ?></td>
+                                <td><?= $daftar->judul_berita ?></td>
+                                <td><a class="btn btn-primary detail" href="<?= base_url('manager/detail_berita/') . $daftar->id_berita ?>">Detail Berita</a></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

@@ -14,7 +14,7 @@
             <div class="card" style="width: 100%">
                 <div class="card-body">
                     <p class="card-text mb-4 p-judul-dashboard">Data Pribadi</p>
-                    <a href="pegawai/data_pribadi" class="btn btn-primary btn-block">Lihat Detail</a>
+                    <a href="<?= base_url('pegawai/data_pribadi/') . $user->nik ?>" class="btn btn-primary btn-block">Lihat Detail</a>
                 </div>
             </div>
         </div>
@@ -43,11 +43,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td>Mark</td>
-                            <td><a class="btn btn-primary detail" href="pegawai/detail_berita">Lihat Berita</a></td>
-                        </tr>
+                        <?php $no = 1;
+                        foreach ($data_berita as $berita) { ?>
+                            <tr>
+                                <td scope="row"><?= $no++ ?></td>
+                                <td><?= $berita->judul_berita ?></td>
+                                <td><a class="btn btn-primary detail" href="<?= base_url('pegawai/detail_berita/') . $berita->id_berita ?>">Lihat Berita</a></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

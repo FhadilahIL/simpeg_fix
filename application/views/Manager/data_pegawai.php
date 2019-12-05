@@ -6,15 +6,6 @@
                 <h1 class="h3 mb-0 text-gray-800">Data Pegawai</h1>
             </div>
 
-            <div class="d-flex flex-row-column">
-                <div class="ml-auto">
-                    <form class="form-inline mb-3">
-                        <input class="form-control mr-sm-2 cari-pegawai" type="search" placeholder="Cari Nama Pegawai" aria-label="Search">
-                        <button class="btn btn-outline-success tombol-cari-pegawai" type="submit">Cari</button>
-                    </form>
-                </div>
-            </div>
-
             <!-- Content Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 mb-5 table-responsive-lg">
@@ -30,13 +21,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1.</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td><a class="btn btn-primary detail" href="detail_pegawai">Detail</a></td>
-                            </tr>
+                            <?php $no = 1;
+                            foreach ($daftar_pegawai as $pegawai) { ?>
+                                <tr>
+                                    <td><?= $no++ . "." ?></td>
+                                    <td><?= $pegawai->nik ?></td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td><a class="btn btn-primary detail" href="detail_pegawai">Detail</a></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

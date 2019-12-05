@@ -33,7 +33,7 @@
             <?php foreach ($berita_carousel as $carousel) { ?>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <a href="<?= base_url('guest/detail_berita/') . $carousel->id_berita ?>"><img class="d-block w-100 carousel-berita" src="<?= base_url('assets/img/berita/') . $carousel->nama_gambar ?>" alt="First slide"></a>
+                        <a href="<?= base_url('guest/detail_berita/') . $carousel->id_berita ?>"><img class="d-block w-100 carousel-berita" src="<?= base_url('assets/img/berita/') . $carousel->nama_gambar_berita ?>" alt="First slide"></a>
                     </div>
                 </div>
             <?php } ?>
@@ -51,7 +51,7 @@
             <?php foreach ($berita_related as $data_berita) { ?>
                 <div class="col-4">
                     <div class="card">
-                        <a href="<?= base_url('guest/detail_berita/') . $data_berita->id_berita ?>"><img class="card-img-top" src="<?= base_url('assets/img/berita/') . $data_berita->nama_gambar ?>" alt="Card image cap"></a>
+                        <a href="<?= base_url('guest/detail_berita/') . $data_berita->id_berita ?>"><img class="card-img-top" src="<?= base_url('assets/img/berita/') . $data_berita->nama_gambar_berita ?>" alt="Card image cap"></a>
                         <p class="card-title text-center pt-3"><?= $data_berita->judul_berita ?></p>
                     </div>
                 </div>

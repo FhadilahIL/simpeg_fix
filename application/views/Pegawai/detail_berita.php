@@ -11,12 +11,12 @@
 
                 <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-11 col-md-11 mb-4">
-                    <img class="gambar-berita" src="<?= base_url('assets/img/') . $detail_berita->nama_gambar; ?>" alt="">
+                    <img class="gambar-berita" src="<?= base_url('assets/img/berita/') . $detail_berita->nama_gambar_berita; ?>">
                 </div>
                 <div class="col-xl-11 col-md-11 mb-4">
                     <p>Posted By <?= $detail_berita->nama; ?></p>
-                    <p><?= $detail_berita->tanggal; ?></p>
-                    <p><?= $detail_berita->isi_berita; ?></p>
+                    <p><?= 'Published : ' . date('d F Y', strtotime($detail_berita->tanggal)); ?></p>
+                    <p class="text-justify"><?= $detail_berita->isi_berita; ?></p>
                 </div>
                 <!-- Content Row -->
             </div>
