@@ -18,19 +18,17 @@
     <!-- Image and text -->
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index">SIMPEG</a>
-            <a class="btn btn-primary login-guest" href="login_page">Login</a>
+            <a class="navbar-brand" href="<?= base_url('guest') ?>">SIMPEG</a>
+            <a class="btn btn-primary login-guest" href="<?= base_url('guest/login_page') ?>">Login</a>
         </div>
     </nav>
 
     <div class="container">
-        <h1 class="judul-berita-guest">Kenaikan Jabatan</h1>
-        <img class="gambar-berita-guest" src="<?= base_url('assets/img/kenaikan_jabatan.jpg') ?>" alt="berita">
-        <p class="mt-3">Posted by Muhammad Ilham Fhadilah</p>
-        <p>2019/08/01</p>
-        <p class="isi-berita-guest">Logo ini dibuat oleh Muhammad Ilham Fhadilah sejak dia mengenal musik EDM. dan lagu
-            yang
-            didengarnya adalah lagu alan walker yang berjudul "Alone"</p>
+        <h1 class="judul-berita-guest"><?= $tampil_berita->judul_berita ?></h1>
+        <img class="gambar-berita-guest" src="<?= base_url('assets/img/berita/') . $tampil_berita->nama_gambar ?>" alt="berita">
+        <p class="mt-3">Posted by <?= $tampil_berita->nama ?></p>
+        <p><?= $tampil_berita->tanggal ?></p>
+        <p class="isi-berita-guest"><?= $tampil_berita->isi_berita ?></p>
     </div>
 
     <!-- Footer -->

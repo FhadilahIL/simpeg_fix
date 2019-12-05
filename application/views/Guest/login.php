@@ -57,6 +57,12 @@
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-user btn-block">Masuk</button>
                                         </div>
+                                        <div class="separate">
+                                            <hr />
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="<?= base_url('guest') ?>" class="btn btn-primary btn-user btn-block">Kembali Ke Home</a>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

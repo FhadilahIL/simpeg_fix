@@ -7,15 +7,33 @@ class Guest extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User');
+        $this->load->model('News');
     }
 
     function index()
     {
-        $this->load->view('guest/index');
+        $data['berita_related'] = $this->News->related_news()->result();
+        $data['berita_carousel'] = $this->News->carousel_news()->result();
+        $this->load->view('guest/index', $data);
     }
 
     function login_page()
     {
+        if ($this->session->userdata('role') != NULL) {
+            redirect('auth/cek_session');
+        }
         $this->load->view('guest/login');
+    }
+
+    function detail_berita($id_berita)
+    {
+        $id_berita = $this->uri->segment(3);
+        $cari = $this->News->cari($id_berita)->row();
+        if ($id_berita == $cari->id_berita) {
+            $data['tampil_berita'] = $this->News->tampil_berita($id_berita)->row();
+            $this->load->view('guest/detail_berita', $data);
+        } else {
+            show_404();
+        }
     }
 }

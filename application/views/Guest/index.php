@@ -18,7 +18,7 @@
     <!-- Image and text -->
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="guest">SIMPEG</a>
+            <a class="navbar-brand" href="<?= base_url('guest') ?>">SIMPEG</a>
             <a class="btn btn-primary login-guest" href="<?= base_url('guest/login_page') ?>">Login</a>
         </div>
     </nav>
@@ -30,11 +30,13 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <a href="guest/detail_berita"><img class="d-block w-100 carousel-berita" src="<?= base_url('assets/img/kenaikan_jabatan.jpg') ?>" alt="First slide"></a>
+            <?php foreach ($berita_carousel as $carousel) { ?>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a href="<?= base_url('guest/detail_berita/') . $carousel->id_berita ?>"><img class="d-block w-100 carousel-berita" src="<?= base_url('assets/img/berita/') . $carousel->nama_gambar ?>" alt="First slide"></a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -46,21 +48,14 @@
         </div>
         <h2 class="mt-4">Related News</h2>
         <div class="row isi-berita-guest">
-            <div class="col-4">
-                <div class="card">
-                    <a href="guest/detail_berita"><img class="card-img-top" src="<?= base_url('assets/img/kenaikan_jabatan.jpg') ?>" alt="Card image cap"></a>
+            <?php foreach ($berita_related as $data_berita) { ?>
+                <div class="col-4">
+                    <div class="card">
+                        <a href="<?= base_url('guest/detail_berita/') . $data_berita->id_berita ?>"><img class="card-img-top" src="<?= base_url('assets/img/berita/') . $data_berita->nama_gambar ?>" alt="Card image cap"></a>
+                        <p class="card-title text-center pt-3"><?= $data_berita->judul_berita ?></p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <a href="guest/detail_berita"><img class="card-img-top" src="<?= base_url('assets/img/kenaikan_jabatan.jpg') ?>" alt="Card image cap"></a>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <a href="guest/detail_berita"><img class="card-img-top" src="<?= base_url('assets/img/kenaikan_jabatan.jpg') ?>" alt="Card image cap"></a>
-                </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
 

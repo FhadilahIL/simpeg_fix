@@ -8,21 +8,27 @@ class News extends CI_Model
         return $this->db->get('berita');
     }
 
-    function tampil_berita_index($limit)
+    function cari($id_berita)
     {
-        $this->db->select('*');
-        $this->db->join('users', 'berita.id_pegawai = users.id_pegawai', 'inner');
-        $this->db->limit($limit);
+        $this->db->select('id_berita', $id_berita);
         return $this->db->get('berita');
     }
 
-    function detail_berita_index($id)
+    function tampil_berita_index()
     {
         $this->db->select('*');
         $this->db->join('users', 'berita.id_pegawai = users.id_pegawai', 'inner');
-        $this->db->where('id_berita', $id);
+        $this->db->limit(5);
         return $this->db->get('berita');
     }
+
+    // function detail_berita_index($id)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->join('users', 'berita.id_pegawai = users.id_pegawai', 'inner');
+    //     $this->db->where('id_berita', $id);
+    //     return $this->db->get('berita');
+    // }
 
     function daftar_berita()
     {
@@ -47,5 +53,20 @@ class News extends CI_Model
     function update_news($data)
     {
         return $this->db->replace('berita', $data);
+    }
+
+    function related_news()
+    {
+        $this->db->join('users', 'berita.id_pegawai = users.id_pegawai', 'inner');
+        $this->db->limit(3);
+        $this->db->order_by('id_berita DESC');
+        return $this->db->get('berita');
+    }
+
+    function carousel_news()
+    {
+        $this->db->join('users', 'berita.id_pegawai = users.id_pegawai', 'inner');
+        $this->db->order_by(5, 'RANDOM');
+        return $this->db->get('berita');
     }
 }

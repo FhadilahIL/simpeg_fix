@@ -7,6 +7,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User');
+        $this->load->helper('logUser');
     }
 
     function cek_login()
@@ -38,7 +39,7 @@ class Auth extends CI_Controller
                     $this->session->set_flashdata('pesan', 'User Belum Didaftarkan Hak Aksesnya');
                     redirect('guest/login_page');
                 }
-
+                userLog('Loggin', $data_user['id']);
                 $this->session->set_userdata($data_user);
                 redirect('auth/cek_session');
             } else {
@@ -69,5 +70,10 @@ class Auth extends CI_Controller
     {
         $this->session->sess_destroy();
         redirect(base_url());
+    }
+
+    function error_page()
+    {
+        redirect($_SERVER['HTTP_REFERER']);
     }
 }

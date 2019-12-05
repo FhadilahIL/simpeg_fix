@@ -210,7 +210,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    function detail_berita($id)
+    function detail_berita($id_berita)
     {
         $data['judul_halaman'] = "Admin - Detail Berita";
         $data['active'] = "";
@@ -221,7 +221,8 @@ class Admin extends CI_Controller
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
         ];
-        $data['lihat'] = $this->News->detail_berita_index($id)->row();
+        $id_berita = $this->uri->segment(3);
+        $data['lihat'] = $this->News->tampil_berita($id_berita)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -281,7 +282,7 @@ class Admin extends CI_Controller
         } elseif ($data['user']->jenis_kelamin == "P") {
             $data['jenis_kelamin'] = ['', 'selected'];
         }
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -363,13 +364,14 @@ class Admin extends CI_Controller
 
     function update_data()
     {
+        // var_dump($_POST);
+        // die;
         $nik = $this->input->post('nik');
         $password_plain = $this->input->post('password');
         $password_ecrypt = password_hash($password_plain, PASSWORD_DEFAULT);
         $data = array(
             'nama' => $this->input->post('nama'),
             'email' => $this->input->post('email'),
-            'password' => $password_ecrypt,
             'alamat' => $this->input->post('alamat'),
             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
             'pendidikan' => $this->input->post('pendidikan'),
@@ -380,21 +382,37 @@ class Admin extends CI_Controller
 
         if ($data > 0) {
             $this->User->update_data($data, $nik);
-            $data = $this->User->cari_user($nik)->row();
+            // $data = $this->User->cari_user($nik)->row();
             $data_user = array(
                 'nama'      => $data->nama,
                 'id'        => $data->nik,
-                'password'  => $password_plain,
                 'role'      => $data->id_akses,
                 'jabatan'   => $data->nama_jabatan
             );
             $this->session->set_userdata($data_user);
             $this->session->set_flashdata('pesan', 'Data Berhasil Di Ubah');
-            redirect(base_url('admin/data_pribadi/' . $this->session->userdata('id')));
+            redirect($_SERVER['HTTP_REFERER']);
         } else {
             $this->session->set_flashdata('pesan', 'Data Harus Dilengkapi. Silahkan Isi Data Ulang');
-            redirect(base_url('admin/data_pribadi/' . $this->session->userdata('id')));
+            redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+    function upload_gambar($nama)
+    {
+        $config['upload_path']          = './assets/img/berita/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['file_name']            = $nama;
+        $config['max_size']             = 1024;
+        $config['overwrite']            = true;
+        // $config['max_width']            = 1024;
+        // $config['max_height']           = 768;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar')) {
+            return $this->upload->data('file_name');
+        } else { }
     }
 
     function input_news()
@@ -403,12 +421,12 @@ class Admin extends CI_Controller
             'id_berita'     => '',
             'id_pegawai'    => $this->session->userdata('id'),
             'judul_berita'  => $this->input->post('judul'),
-            'nama_gambar'   => 'default.jpg',
+            'nama_gambar'   => $this->upload_gambar($this->input->post('judul') . "_" . time()),
             'tanggal'       => date('Ymd'),
             'isi_berita'    => $this->input->post('isi')
         ];
-        if ($data > 0) {
-            $this->News->input_berita($data);
+        if ($this->News->input_berita($data)) {
+            // $this->News->input_berita($data);
             $this->session->set_flashdata('pesan', "Berita Behasil di Publish");
             redirect(base_url('admin/data_berita'));
         }

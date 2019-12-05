@@ -10,7 +10,6 @@ class User extends CI_Model
 
     function cari_user($username)
     {
-        $this->db->select('*');
         $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
         $this->db->join('hak_akses', 'jabatan.id_akses = hak_akses.id_akses', 'inner');
         $this->db->where('nik', $username);
@@ -54,9 +53,10 @@ class User extends CI_Model
         return $this->db->get('users');
     }
 
-    function update_data($data, $id)
+    function update_data($data, $nik)
     {
-        return $this->db->update('users', $data, "id_pegawai = $id");
+        $this->db->where('nik', $nik);
+        return $this->db->update('users', $data);
     }
 
     function get_pegawai()
