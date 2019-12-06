@@ -23,7 +23,7 @@
         </div>
     <?php } ?>
 
-    <form action="<?= base_url('pegawai/update_data') ?>" method="post">
+    <form action="<?= base_url('pegawai/update_data') ?>" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <label for="exampleInputNIK">NIK</label>
             <input type="text" name="nik" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK" value="<?= $this->session->userdata('nik'); ?>" readonly>
@@ -88,9 +88,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlFile1">Foto Profile</label> <br />
-            <img src="<?= base_url('assets/img/profile/') . $user->nama_gambar_profile ?>" class="pt-1 border rounded" width="150" height="150">
-            <input type="file" class="form-control-file pt-2" id="exampleFormControlFile1">
+            <label for="exampleFormControlFile1">Foto Profile <small class="form-text text-muted">Size kurang dari 5 MB dengan Ukuran Foto 1 x 1 (Kotak)</small></label> <br />
+            <img src="<?= base_url('assets/img/profile/') . $user->nama_gambar_profile ?>" class="pt-1 rounded" width="150" height="150">
+            <input type="file" class="form-control-file pt-2" id="exampleFormControlFile1" name="gambar">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Simpan</button>

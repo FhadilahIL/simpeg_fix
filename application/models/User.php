@@ -59,6 +59,12 @@ class User extends CI_Model
         return $this->db->update('users', $data);
     }
 
+    function update_data_pegawai($data, $id_pegawai)
+    {
+        $this->db->where('id_pegawai', $id_pegawai);
+        return $this->db->update('users', $data);
+    }
+
     function get_pegawai()
     {
         $this->db->select('*');

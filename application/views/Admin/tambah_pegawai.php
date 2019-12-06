@@ -29,14 +29,14 @@
             <textarea class="form-control" name="alamat" rows="5" placeholder="Enter Your Address"></textarea>
         </div>
         <div class="form-row mb-3">
-            <div class="col-4">
+            <div class="col-6">
                 <label for="exampleFormControlTextareaAlamat">Jenis Kelamin</label>
                 <select class="form-control" name="jenis_kelamin">
                     <option value="L">Laki - Laki</option>
                     <option value="P">Perempuan</option>
                 </select>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <label for="exampleFormControlTextareaAlamat">Pendidikan</label>
                 <select class="form-control" name="pendidikan">
                     <option value="SMA">SMA</option>
@@ -47,16 +47,16 @@
                     <option value="S3">S3</option>
                 </select>
             </div>
-            <div class="col-4">
-                <label for="exampleFormControlTextareaAlamat">Status Perkawinan</label>
-                <select class="form-control" name="status">
-                    <option value="Belum Menikah">Belum Menikah</option>
-                    <option value="Menikah">Menikah</option>
-                </select>
-            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextareaAlamat">Status Perkawinan</label>
+            <select class="form-control" name="status">
+                <option value="Belum Menikah">Belum Menikah</option>
+                <option value="Menikah">Menikah</option>
+            </select>
         </div>
         <div class="form-row mb-3">
-            <div class="col-4">
+            <div class="col-6">
                 <label for="exampleFormControlTextareaAlamat">Agama</label>
                 <select class="form-control" name="agama">
                     <option value="Islam">Islam</option>
@@ -66,7 +66,7 @@
                     <option value="Budha">Budha</option>
                 </select>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <label for="exampleFormControlTextareaAlamat">Jabatan</label>
                 <select class="form-control" name="jabatan">
                     <?php foreach ($jabatan as $jabatan) { ?>
@@ -74,10 +74,10 @@
                     <?php } ?>
                 </select>
             </div>
-            <div class="col-4">
-                <label for="exampleFormControlTextareaAlamat">No. Handphone</label>
-                <input type="text" name="no_telp" class="form-control">
-            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextareaAlamat">No. Handphone</label>
+            <input type="text" name="no_telp" class="form-control">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Simpan</button>

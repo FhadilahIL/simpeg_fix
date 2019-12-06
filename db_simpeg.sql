@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2019 at 07:17 PM
+-- Generation Time: Dec 06, 2019 at 03:59 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -42,8 +42,8 @@ CREATE TABLE `berita` (
 --
 
 INSERT INTO `berita` (`id_berita`, `id_pegawai`, `judul_berita`, `nama_gambar_berita`, `tanggal`, `isi_berita`) VALUES
-(18, 1, 'Kenaikan Jabatan', '<p>You did not select a file to upload.</p>', '2019-12-05', 'igiigigighh'),
-(19, 1, 'Kenaikan Gaji', 'Kenaikan_Gaji.jpg', '2019-12-05', 'ajjdadjkada');
+(19, 1, 'Kenaikan Gaji', 'Kenaikan_Gaji.jpg', '2019-12-05', 'ajjdadjkada'),
+(24, 1, 'Kenaikan Jabatan', 'Kenaikan_Jabatan.jpg', '2019-12-05', 'Mantab Mul');
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,33 @@ INSERT INTO `logs` (`id_logs`, `kegiatan`, `waktu`, `id_pegawai`) VALUES
 (13, 'Loggin', '2019-12-05', 5),
 (14, 'Loggin', '2019-12-05', 1),
 (15, 'Loggin', '2019-12-05', 5),
-(16, 'Loggin', '2019-12-05', 3);
+(16, 'Loggin', '2019-12-05', 3),
+(17, 'Loggin', '2019-12-05', 1),
+(18, 'Loggin', '2019-12-05', 5),
+(19, 'Loggin', '2019-12-05', 3),
+(20, 'Loggin', '2019-12-05', 1),
+(21, 'Loggin', '2019-12-05', 1),
+(22, 'Loggin', '2019-12-05', 1),
+(23, 'Loggin', '2019-12-06', 1),
+(24, 'Loggin', '2019-12-06', 5),
+(25, 'Loggin', '2019-12-06', 1),
+(26, 'Loggin', '2019-12-06', 1),
+(27, 'Loggin', '2019-12-06', 1),
+(28, 'Loggin', '2019-12-06', 1),
+(29, 'Loggin', '2019-12-06', 1),
+(30, 'Loggin', '2019-12-06', 1),
+(31, 'Loggin', '2019-12-06', 1),
+(32, 'Loggin', '2019-12-06', 1),
+(33, 'Loggin', '2019-12-06', 1),
+(34, 'Loggin', '2019-12-06', 1),
+(35, 'Loggin', '2019-12-06', 1),
+(36, 'Loggin', '2019-12-06', 1),
+(37, 'Loggin', '2019-12-06', 1),
+(38, 'Loggin', '2019-12-06', 1),
+(39, 'Loggin', '2019-12-06', 1),
+(40, 'Loggin', '2019-12-06', 5),
+(41, 'Loggin', '2019-12-06', 1),
+(42, 'Loggin', '2019-12-06', 5);
 
 -- --------------------------------------------------------
 
@@ -188,8 +214,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_pegawai`, `nik`, `nama`, `alamat`, `agama`, `jenis_kelamin`, `pendidikan`, `email`, `status`, `password`, `no_telp`, `nama_gambar_profile`, `id_jabatan`, `tanggal_masuk`) VALUES
-(1, '3674010801990005', 'Muhammad Ilham Fhadilah', 'Kp. Setu Rt. 02/01 No. 53 Kel. Buaran, Kec. Serpong, Tangerang Selatan', 'Islam', 'L', 'S3', 'admin-ilham@simpeg.com', 'Belum Menikah', '$2y$10$rsmjcMVWpuxC.huS7qDy/uvjvhNYr0jcfZUUg9sYYFzVBA2JS86GK', '089677186962', 'default.svg', 1, '2019-11-04'),
-(3, '3674000101990005', 'Bagas Kurniawan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$CcszNb6rhFk9ezJl5T47d.3xXmT3AhEAKSnVqmjOUKGWWjMMmQpoW', '089677186964', 'default.svg', 3, '2019-11-28'),
+(1, '3674010801990005', 'Muhammad Ilham Fhadilah', 'Kp. Setu Rt. 02/01 No. 53 Kel. Buaran, Kec. Serpong', 'Islam', 'L', 'S2', 'admin-ilham@simpeg.com', 'Belum Menikah', '$2y$10$rsmjcMVWpuxC.huS7qDy/uvjvhNYr0jcfZUUg9sYYFzVBA2JS86GK', '089677186962', '7facc91d3dbe2da8a2bae9f5ad974cb3.jpeg', 1, '2019-11-04'),
+(3, '3674000101990005', 'Bagas Kurniawan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$WaMwVp8xzE4r3E3Yhe.HKuqIefxNcBGdBkv3xMqdW3wHpMRDUXkGa', '089677186964', 'default.svg', 3, '2019-11-28'),
 (5, '3674000101990006', 'Aris Indrawan', 'Cikande, Serang, Banten', 'Islam', 'L', 'SMA', 'pegawai-aris@simpeg.com', 'Menikah', '$2y$10$gUa9xuB5USOtuT.ob98j5exeeLQxRy83.uu3b2l.3jMybM97nUh/C', '089677186967', 'default.svg', 2, '2019-11-28');
 
 --
@@ -263,7 +289,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `cuti`
@@ -299,7 +325,7 @@ ALTER TABLE `keluarga`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -212,51 +212,110 @@ class Pegawai extends CI_Controller
         ];
         $id = $this->session->userdata('nik');
         $data['user'] = $this->User->cari_user($id)->row();
-        $data['detail_berita'] = $this->News->tampil_berita($id_berita)->row();
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/navbar', $data);
-        $this->load->view('pegawai/detail_berita');
-        $this->load->view('templates/footer');
+        $id_berita = $this->uri->segment(3);
+        $cari = $this->News->cari($id_berita);
+        if ($cari->num_rows() > 0) {
+            $a = $cari->row();
+            if ($a->id_berita = $id_berita) {
+                $data['detail_berita'] = $this->News->tampil_berita($id_berita)->row();
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/navbar', $data);
+                $this->load->view('pegawai/detail_berita', $data);
+                $this->load->view('templates/footer');
+            } else {
+                show_404();
+            }
+        } else {
+            show_404();
+        }
+    }
+
+    function upload_gambar_profile($nama)
+    {
+        $config['upload_path']          = './assets/img/profile/';
+        $config['allowed_types']        = 'jpg|png|jpeg|pdf';
+        $config['file_name']            = $nama;
+        $config['max_size']             = 5120;
+        $config['overwrite']            = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar')) {
+            $config['image_library'] = 'gd2';
+            $config['width'] = "150";
+            $config['height'] = "150";
+            $config['maintain_ratio'] = FALSE;
+            $this->load->library('image_lib', $config);
+            $this->image_lib->resize();
+            return $this->upload->data('file_name');
+        } else {
+            return $this->upload->display_errors();
+        }
     }
 
     function update_data()
     {
         $nik = $this->input->post('nik');
         $password_plain = $this->input->post('password');
-        $gambar = $this->input->post('gambar');
+        $password_ecrypt = password_hash($password_plain, PASSWORD_DEFAULT);
         if ($password_plain != "") {
-            $data = array(
-                'nama' => $this->input->post('nama'),
-                'email' => $this->input->post('email'),
-                'password' => password_hash($password_plain, PASSWORD_DEFAULT),
-                'alamat' => $this->input->post('alamat'),
-                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'pendidikan' => $this->input->post('pendidikan'),
-                'status' => $this->input->post('status'),
-                'agama' => $this->input->post('agama'),
-                'no_telp' => $this->input->post('no_telp')
-            );
+            if ($_FILES['gambar']['name']) {
+                $data = array(
+                    'nama' => $this->input->post('nama'),
+                    'email' => $this->input->post('email'),
+                    'password' => $password_ecrypt,
+                    'alamat' => $this->input->post('alamat'),
+                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                    'pendidikan' => $this->input->post('pendidikan'),
+                    'status' => $this->input->post('status'),
+                    'agama' => $this->input->post('agama'),
+                    'no_telp' => $this->input->post('no_telp'),
+                    'nama_gambar_profile' => $this->upload_gambar_profile($this->input->post('nama'))
+                );
+            } else {
+                $data = array(
+                    'nama' => $this->input->post('nama'),
+                    'email' => $this->input->post('email'),
+                    'password' => $password_ecrypt,
+                    'alamat' => $this->input->post('alamat'),
+                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                    'pendidikan' => $this->input->post('pendidikan'),
+                    'status' => $this->input->post('status'),
+                    'agama' => $this->input->post('agama'),
+                    'no_telp' => $this->input->post('no_telp')
+                );
+            }
         } else {
-            $data = array(
-                'nama' => $this->input->post('nama'),
-                'email' => $this->input->post('email'),
-                'alamat' => $this->input->post('alamat'),
-                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'pendidikan' => $this->input->post('pendidikan'),
-                'status' => $this->input->post('status'),
-                'agama' => $this->input->post('agama'),
-                'no_telp' => $this->input->post('no_telp')
-            );
+            if ($_FILES['gambar']['name']) {
+                $data = array(
+                    'nama' => $this->input->post('nama'),
+                    'email' => $this->input->post('email'),
+                    'alamat' => $this->input->post('alamat'),
+                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                    'pendidikan' => $this->input->post('pendidikan'),
+                    'status' => $this->input->post('status'),
+                    'agama' => $this->input->post('agama'),
+                    'no_telp' => $this->input->post('no_telp'),
+                    'nama_gambar_profile' => $this->upload_gambar_profile($this->input->post('nama'))
+                );
+            } else {
+                $data = array(
+                    'nama' => $this->input->post('nama'),
+                    'email' => $this->input->post('email'),
+                    'alamat' => $this->input->post('alamat'),
+                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                    'pendidikan' => $this->input->post('pendidikan'),
+                    'status' => $this->input->post('status'),
+                    'agama' => $this->input->post('agama'),
+                    'no_telp' => $this->input->post('no_telp')
+                );
+            }
         }
-        if ($gambar) {
-            $data = ['nama_gambar_profile' => $this->upload_gambar('profile_' . $nik)];
-        }
-        print_r($data);
-        die;
 
         if ($this->User->update_data($data, $nik)) {
-            // $data = $this->User->detail_pegawai($username)->row();
+            $this->load->helper('updatesession');
+            updateSession(['nama' => $data['nama']]);
             $this->session->set_flashdata('pesan_berhasil', 'Data Berhasil Di Ubah');
             redirect(base_url('pegawai/data_pribadi/' . $nik));
         } else {

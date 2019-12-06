@@ -24,14 +24,14 @@
                 <div class="col-xl-12 col-md-12 mb-5 table-responsive-lg">
                     <?php if ($this->session->flashdata('pesan_berhasil')) { ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Success!!!</strong> <?= $this->session->flashdata('pesan') ?>
+                            <strong>Success!!!</strong> <?= $this->session->flashdata('pesan_berhasil') ?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     <?php } elseif ($this->session->flashdata('pesan_gagal')) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Failed!!!</strong> <?= $this->session->flashdata('pesan') ?>
+                            <strong>Failed!!!</strong> <?= $this->session->flashdata('pesan_gagal') ?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
