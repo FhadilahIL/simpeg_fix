@@ -9,10 +9,10 @@ dan Bootstrap 4.1.3. Selamat berkunjung :)
 Login Account
 
 Admin   : username = admin-ilham@simpeg.com
-          password = admin
+	  password = admin
 					
 Manager : username = manager-bagas@simpeg.com
-          password = manager
+	  password = manager
 
 Pegawai	: username = pegawai-aris@simpeg.com
 	  password = pegawai
