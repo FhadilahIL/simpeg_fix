@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-xl-11 col-md-11 mb-4">
                     <p>Posted By <?= $lihat->nama ?></p>
-                    <p><?= $lihat->tanggal ?></p>
+                    <p><?= date('D, d F Y', strtotime($lihat->tanggal)) ?></p>
                     <p><?= $lihat->isi_berita ?></p>
                 </div>
                 <!-- Content Row -->

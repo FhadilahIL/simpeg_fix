@@ -13,7 +13,7 @@
                         <label for="NIK">NIK</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="NIM"><?= $detail->nik ?></label>
+                        <label for="NIM"><?= $user->nik ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -21,7 +21,7 @@
                         <label for="Nama">Nama Lengkap</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="Nama"><?= $detail->nama ?></label>
+                        <label for="Nama"><?= $user->nama ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -29,7 +29,7 @@
                         <label for="email">Email</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="email"><?= $detail->email ?></label>
+                        <label for="email"><?= $user->email ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -37,7 +37,7 @@
                         <label for="alamat">Alamat</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="alamat"><?= $detail->alamat ?></label>
+                        <label for="alamat"><?= $detail_user->alamat ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -53,7 +53,7 @@
                         <label for="pendidikan">Pendidikan</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="pendidikan"><?= $detail->pendidikan ?></label>
+                        <label for="pendidikan"><?= $detail_user->pendidikan ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -61,15 +61,7 @@
                         <label for="statusPerkawinan">Status Perkawinan</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="statusPerkawinan"><?= $detail->status ?></label>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="jabatan">Jabatan</label>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="jabatan"><?= $detail->nama_jabatan ?></label>
+                        <label for="statusPerkawinan"><?= $detail_user->status ?></label>
                     </div>
                 </div>
                 <div class="form-row">
@@ -77,34 +69,31 @@
                         <label for="agama">Agama</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="agama"><?= $detail->agama ?></label>
-                    </div>
-                </div>
-                <div class="form-row mt-5">
-                    <h4>Keluarga</h4>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="istri">Istri</label>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="agama">Hanifah Puji Lestari</label>
+                        <label for="agama"><?= $detail_user->agama ?></label>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <label for="anak">Anak</label>
+                        <label for="jabatan">Jabatan</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="anak">Adinda Sania</label>
+                        <label for="jabatan"><?= $user->nama_jabatan ?></label>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <label for="anak"></label>
+                        <label for="jabatan">Divisi</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="anak">Kintan Meyonta Reforma</label>
+                        <label for="jabatan"><?= $user->nama_divisi ?></label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="jabatan">Foto Profile</label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <img src="<?= base_url('assets/img/profile/') . $detail_user->nama_gambar_profile ?>" width="250">
                     </div>
                 </div>
             </form>

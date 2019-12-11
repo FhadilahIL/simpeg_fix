@@ -104,6 +104,10 @@
   }
 
   @media (max-width: 992px) {
+  	body {
+  		font-size: 11pt !important;
+  	}
+
   	.detail {
   		font-size: 11px;
   	}
@@ -133,6 +137,10 @@
   		font-size: 11px;
   		margin-left: 2%;
   		margin-top: 1px;
+  	}
+
+  	.keterangan-manager {
+  		min-width: 250px;
   	}
 
   	.copyright span {

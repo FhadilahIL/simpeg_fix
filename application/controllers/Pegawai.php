@@ -10,6 +10,7 @@ class Pegawai extends CI_Controller
             redirect('auth/cek_session');
         }
         $this->load->model('User');
+        $this->load->model('Cuti');
         $this->load->model('News');
     }
 
@@ -24,8 +25,10 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
-        $id = $this->session->userdata('nik');
-        $data['user'] = $this->User->cari_user($id)->row();
+
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+
         $data['data_berita'] = $this->News->tampil_berita_index()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -47,43 +50,45 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
-        $data['user'] = $this->User->detail_pegawai($username)->row();
 
-        if ($data['user']->agama == "Islam") {
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+
+        if (($data['detail_user']->agama == "Islam") || ($data['detail_user']->agama == "")) {
             $data['agama'] = ['selected', '', '', '', ''];
-        } elseif ($data['user']->agama == "Kristen") {
+        } elseif ($data['detail_user']->agama == "Kristen") {
             $data['agama'] = ['', 'selected', '', '', ''];
-        } elseif ($data['user']->agama == "Katholik") {
+        } elseif ($data['detail_user']->agama == "Katholik") {
             $data['agama'] = ['', '', 'selected', '', ''];
-        } elseif ($data['user']->agama == "Hindu") {
+        } elseif ($data['detail_user']->agama == "Hindu") {
             $data['agama'] = ['', '', '', 'selected', ''];
-        } elseif ($data['user']->agama == "Budha") {
+        } elseif ($data['detail_user']->agama == "Budha") {
             $data['agama'] = ['', '', '', '', 'selected'];
         }
 
-        if ($data['user']->pendidikan == "SMA") {
+        if (($data['detail_user']->pendidikan == "SMA") || ($data['detail_user']->pendidikan == "")) {
             $data['pendidikan'] = ['selected', '', '', '', '', ''];
-        } elseif ($data['user']->pendidikan == "D3") {
+        } elseif ($data['detail_user']->pendidikan == "D3") {
             $data['pendidikan'] = ['', 'selected', '', '', '', ''];
-        } elseif ($data['user']->pendidikan == "D4") {
+        } elseif ($data['detail_user']->pendidikan == "D4") {
             $data['pendidikan'] = ['', '', 'selected', '', '', ''];
-        } elseif ($data['user']->pendidikan == "S1") {
+        } elseif ($data['detail_user']->pendidikan == "S1") {
             $data['pendidikan'] = ['', '', '', 'selected', '', ''];
-        } elseif ($data['user']->pendidikan == "S2") {
+        } elseif ($data['detail_user']->pendidikan == "S2") {
             $data['pendidikan'] = ['', '', '', '', 'selected', ''];
-        } elseif ($data['user']->pendidikan == "S3") {
+        } elseif ($data['detail_user']->pendidikan == "S3") {
             $data['pendidikan'] = ['', '', '', '', '', 'selected'];
         }
 
-        if ($data['user']->status == "Belum Menikah") {
+        if (($data['detail_user']->status == "Belum Menikah") || ($data['detail_user']->status == "")) {
             $data['status'] = ['selected', ''];
-        } elseif ($data['user']->status == "Menikah") {
+        } elseif ($data['detail_user']->status == "Menikah") {
             $data['status'] = ['', 'selected'];
         }
 
-        if ($data['user']->jenis_kelamin == "L") {
+        if (($data['detail_user']->jenis_kelamin == "L") || ($data['detail_user']->jenis_kelamin == "")) {
             $data['jenis_kelamin'] = ['selected', ''];
-        } elseif ($data['user']->jenis_kelamin == "P") {
+        } elseif ($data['detail_user']->jenis_kelamin == "P") {
             $data['jenis_kelamin'] = ['', 'selected'];
         }
         $this->load->view('templates/header', $data);
@@ -105,12 +110,12 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
-        $id = $this->session->userdata('nik');
-        $data['user'] = $this->User->cari_user($id)->row();
-        $data['detail'] = $this->User->detail_pegawai($username)->row();
-        if ($data['detail']->jenis_kelamin === "L") {
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+
+        if ($data['detail_user']->jenis_kelamin === "L") {
             $data['jenis_kelamin'] = "Laki - Laki";
-        } elseif ($data['detail']->jenis_kelamin === "P") {
+        } elseif ($data['detail_user']->jenis_kelamin === "P") {
             $data['jenis_kelamin'] = "Perempuan";
         }
         $this->load->view('templates/header', $data);
@@ -133,6 +138,10 @@ class Pegawai extends CI_Controller
             ['Cuti', '#', 'active', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
+
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -153,6 +162,11 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), 'active', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
+
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $data['jenis_cuti'] = $this->Cuti->get_cuti()->result();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -173,6 +187,8 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', '#', 'active', 'fa-newspaper']
         ];
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
         $data['data_berita'] = $this->News->daftar_berita()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -181,26 +197,8 @@ class Pegawai extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    function upload_gambar($nama)
-    {
-        $config['upload_path']          = './assets/img/berita/';
-        $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['file_name']            = $nama;
-        $config['max_size']             = 1024;
-        $config['overwrite']            = true;
-
-        $this->load->library('upload', $config);
-
-        if ($this->upload->do_upload('gambar')) {
-            return $this->upload->data('file_name');
-        } else {
-            return $this->upload->display_errors();
-        }
-    }
-
     function detail_berita($id_berita)
     {
-        $id_berita = $this->uri->segment(3);
         $data['judul_halaman'] = "Pegawai - Detail Berita";
         $data['active'] = "";
         $data['dashboard'] = base_url('pegawai');
@@ -210,8 +208,8 @@ class Pegawai extends CI_Controller
             ['Cuti', base_url('pegawai/detail_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('pegawai/data_berita'), 'active', 'fa-newspaper']
         ];
-        $id = $this->session->userdata('nik');
-        $data['user'] = $this->User->cari_user($id)->row();
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
         $id_berita = $this->uri->segment(3);
         $cari = $this->News->cari($id_berita);
         if ($cari->num_rows() > 0) {
@@ -238,6 +236,7 @@ class Pegawai extends CI_Controller
         $config['file_name']            = $nama;
         $config['max_size']             = 5120;
         $config['overwrite']            = TRUE;
+        $config['encrypt_name']         = TRUE;
 
         $this->load->library('upload', $config);
 
@@ -256,71 +255,86 @@ class Pegawai extends CI_Controller
 
     function update_data()
     {
+        $id = $this->input->post('id');
         $nik = $this->input->post('nik');
         $password_plain = $this->input->post('password');
+        $password_confirm = $this->input->post('password_confirm');
         $password_ecrypt = password_hash($password_plain, PASSWORD_DEFAULT);
         if ($password_plain != "") {
-            if ($_FILES['gambar']['name']) {
-                $data = array(
-                    'nama' => $this->input->post('nama'),
-                    'email' => $this->input->post('email'),
-                    'password' => $password_ecrypt,
-                    'alamat' => $this->input->post('alamat'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'pendidikan' => $this->input->post('pendidikan'),
-                    'status' => $this->input->post('status'),
-                    'agama' => $this->input->post('agama'),
-                    'no_telp' => $this->input->post('no_telp'),
-                    'nama_gambar_profile' => $this->upload_gambar_profile($this->input->post('nama'))
-                );
+            if ($password_plain == $password_confirm) {
+                if ($_FILES['gambar']['name']) {
+                    $user = [
+                        'nama'      => $this->input->post('nama'),
+                        'email'     => $this->input->post('email'),
+                        'password'  => $password_ecrypt
+                    ];
+                    $detail = [
+                        'alamat'                => $this->input->post('alamat'),
+                        'jenis_kelamin'         => $this->input->post('jenis_kelamin'),
+                        'pendidikan'            => $this->input->post('pendidikan'),
+                        'status'                => $this->input->post('status'),
+                        'agama'                 => $this->input->post('agama'),
+                        'no_telp'               => $this->input->post('no_telp'),
+                        'nama_gambar_profile'   => $this->upload_gambar_profile($this->input->post('nama'))
+                    ];
+                    $this->session->set_flashdata('pesan_berhasil', 'Data dan Password Berhasil Diubah');
+                } else {
+                    $user = [
+                        'nama'      => $this->input->post('nama'),
+                        'email'     => $this->input->post('email'),
+                        'password'  => $password_ecrypt
+                    ];
+                    $detail = [
+                        'alamat'        => $this->input->post('alamat'),
+                        'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                        'pendidikan'    => $this->input->post('pendidikan'),
+                        'status'        => $this->input->post('status'),
+                        'agama'         => $this->input->post('agama'),
+                        'no_telp'       => $this->input->post('no_telp')
+                    ];
+                    $this->session->set_flashdata('pesan_berhasil', 'Data dan Password Berhasil Diubah');
+                }
             } else {
-                $data = array(
-                    'nama' => $this->input->post('nama'),
-                    'email' => $this->input->post('email'),
-                    'password' => $password_ecrypt,
-                    'alamat' => $this->input->post('alamat'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'pendidikan' => $this->input->post('pendidikan'),
-                    'status' => $this->input->post('status'),
-                    'agama' => $this->input->post('agama'),
-                    'no_telp' => $this->input->post('no_telp')
-                );
+                $this->session->set_flashdata('pesan_gagal', 'Gagal Merubah Data Pribadi. Password Harus Sama');
+                redirect(base_url('pegawai/data_pribadi/') . $nik);
             }
         } else {
             if ($_FILES['gambar']['name']) {
-                $data = array(
-                    'nama' => $this->input->post('nama'),
-                    'email' => $this->input->post('email'),
-                    'alamat' => $this->input->post('alamat'),
-                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'pendidikan' => $this->input->post('pendidikan'),
-                    'status' => $this->input->post('status'),
-                    'agama' => $this->input->post('agama'),
-                    'no_telp' => $this->input->post('no_telp'),
-                    'nama_gambar_profile' => $this->upload_gambar_profile($this->input->post('nama'))
-                );
+                $user = [
+                    'nama'      => $this->input->post('nama'),
+                    'email'     => $this->input->post('email'),
+                ];
+                $detail = [
+                    'alamat'                => $this->input->post('alamat'),
+                    'jenis_kelamin'         => $this->input->post('jenis_kelamin'),
+                    'pendidikan'            => $this->input->post('pendidikan'),
+                    'status'                => $this->input->post('status'),
+                    'agama'                 => $this->input->post('agama'),
+                    'no_telp'               => $this->input->post('no_telp'),
+                    'nama_gambar_profile'   => $this->upload_gambar_profile($this->input->post('nama'))
+                ];
+                $this->session->set_flashdata('pesan_berhasil', 'Data Berhasil Diubah');
             } else {
-                $data = array(
-                    'nama' => $this->input->post('nama'),
-                    'email' => $this->input->post('email'),
-                    'alamat' => $this->input->post('alamat'),
+                $user = [
+                    'nama'  => $this->input->post('nama'),
+                    'email' => $this->input->post('email')
+                ];
+                $detail = [
+                    'alamat'        => $this->input->post('alamat'),
                     'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                    'pendidikan' => $this->input->post('pendidikan'),
-                    'status' => $this->input->post('status'),
-                    'agama' => $this->input->post('agama'),
-                    'no_telp' => $this->input->post('no_telp')
-                );
+                    'pendidikan'    => $this->input->post('pendidikan'),
+                    'status'        => $this->input->post('status'),
+                    'agama'         => $this->input->post('agama'),
+                    'no_telp'       => $this->input->post('no_telp')
+                ];
+                $this->session->set_flashdata('pesan_berhasil', 'Data Berhasil Diubah');
             }
         }
 
-        if ($this->User->update_data($data, $nik)) {
+        if (($this->User->update_data_users($user, $id)) && ($this->User->update_data_detail_user($detail, $id))) {
             $this->load->helper('updatesession');
-            updateSession(['nama' => $data['nama']]);
-            $this->session->set_flashdata('pesan_berhasil', 'Data Berhasil Di Ubah');
-            redirect(base_url('pegawai/data_pribadi/' . $nik));
-        } else {
-            $this->session->set_flashdata('pesan_gagal', 'Data Harus Dilengkapi. Silahkan Isi Data Ulang');
-            redirect(base_url('pegawai/data_pribadi/' . $nik));
+            updateSession(['nama' => $user['nama']]);
+            redirect(base_url('pegawai/data_pribadi/') . $nik);
         }
     }
 }

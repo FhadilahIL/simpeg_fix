@@ -8,7 +8,16 @@
             <form>
                 <div class="form-group">
                     <label for="exampleInputEmail1">NIK</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK">
+                    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->nik ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Jenis Cuti</label>
+                    <select id="inputState" class="form-control" name="jenis_cuti">
+                        <?php foreach ($jenis_cuti as $jenis) { ?>
+                            <option value="<?= $jenis->id_cuti ?>"><?= $jenis->jenis_cuti ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Tanggal Cuti</label>

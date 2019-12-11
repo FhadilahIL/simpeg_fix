@@ -13,7 +13,7 @@
         <div class="col-xl-6 col-md-6 mb-4">
             <div class="card" style="width: 100%">
                 <div class="card-body">
-                    <p class="card-text mb-4 p-judul-dashboard">Data Pribadi</p>
+                    <p class="card-text mb-2 p-judul-dashboard">Data Pribadi</p>
                     <a href="<?= base_url('pegawai/data_pribadi/') . $user->nik ?>" class="btn btn-primary btn-block">Lihat Detail</a>
                 </div>
             </div>
@@ -21,11 +21,10 @@
 
         <!-- Card -->
         <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card" style="width: 100%">
+            <div class="card pt-3 pb-4" style="width: 100%">
                 <div class="card-body">
-                    <h5 class="card-title">Jumlah Anggota Keluarga</h5>
-                    <p class="card-text">1 Orang</p>
-                    <a href="#" class="btn btn-primary btn-block">Lihat Detail</a>
+                    <h5 class="card-title">Jumlah Cuti Bulanan</h5>
+                    <p class="card-text">1 Hari</p>
                 </div>
             </div>
         </div>

@@ -26,8 +26,12 @@
             <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Enter new Password (Optional)" value="">
         </div>
         <div class="form-group">
+            <label for="exampleInputPassword">Password Confirm</label>
+            <input type="password" name="password_confirm" class="form-control" id="exampleInputPassword" placeholder="Re-enter Password" value="">
+        </div>
+        <div class="form-group">
             <label for="exampleFormControlTextareaAlamat">Alamat</label>
-            <textarea class="form-control" name="alamat" id="exampleFormControlTextareaAlamat" rows="5"><?= $pegawai->alamat ?></textarea>
+            <textarea class="form-control" name="alamat" id="exampleFormControlTextareaAlamat" rows="5"><?= $detail_pegawai->alamat ?></textarea>
         </div>
         <div class="form-row mb-3">
             <div class="col-6">
@@ -69,12 +73,12 @@
             </div>
             <div class="col-6">
                 <label for="exampleFormControlTextareaAlamat">No. Handphone</label>
-                <input type="text" name="no_telp" class="form-control" id="inputNoHp" value="<?= $pegawai->no_telp ?>">
+                <input type="text" name="no_telp" class="form-control" id="inputNoHp" value="<?= $detail_pegawai->no_telp ?>">
             </div>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextareaAlamat">Pilih Gambar<small id="emailHelp" class="form-text text-muted">Size kurang dari 5 MB dengan Ukuran Foto 1 x 1 (Kotak)</small></label> <br />
-            <img src="<?= base_url('assets/img/profile/') . $pegawai->nama_gambar_profile ?>" class="pt-1 rounded" width="150" height="150">
+            <img src="<?= base_url('assets/img/profile/') . $detail_pegawai->nama_gambar_profile ?>" class="pt-1 rounded" width="150" height="150">
             <input type="file" class="form-control-file pt-2" id="exampleFormControlFile1" name="gambar">
         </div>
         <div class="form-group">

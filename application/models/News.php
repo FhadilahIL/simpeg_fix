@@ -33,7 +33,6 @@ class News extends CI_Model
 
     function daftar_berita()
     {
-        $this->db->select('*');
         $this->db->join('users', 'berita.id_pegawai = users.id_pegawai', 'inner');
         $this->db->order_by('id_berita DESC');
         return $this->db->get('berita');

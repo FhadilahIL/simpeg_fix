@@ -21,26 +21,31 @@
             </div>
         <?php } ?>
         <!-- Content Row -->
-        <form>
+        <form action="<?= base_url('manager/update_data') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="exampleInputNIK">NIK</label>
-                <input type="email" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK" value="<?= $user->nik ?>" readonly>
+                <input type="hidden" name="id" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK" value="<?= $user->id_pegawai ?>" readonly>
+                <input type="text" name="nik" class="form-control" id="exampleInputNIK" placeholder="Enter your NIK" value="<?= $user->nik ?>" readonly>
             </div>
             <div class="form-group">
                 <label for="exampleInputNama">Nama Lengkap</label>
-                <input type="email" class="form-control" id="exampleInputNama" placeholder="Masukan Nama Lengkap" value="<?= $user->nama ?>">
+                <input type="text" name="nama" class="form-control" id="exampleInputNama" placeholder="Masukan Nama Lengkap" value="<?= $user->nama ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail" placeholder="Enter your NIK" value="<?= $user->email ?>">
+                <input type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="Enter your Email" value="<?= $user->email ?>">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword">Password</label>
-                <input type="email" class="form-control" id="exampleInputPassword" placeholder="Enter your Password">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Enter your Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword">Password Confirm</label>
+                <input type="password" name="password_confirm" class="form-control" id="exampleInputPassword" placeholder="Re-enter your Password">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextareaAlamat">Alamat</label>
-                <textarea class="form-control" id="exampleFormControlTextareaAlamat" rows="5"><?= $user->alamat ?></textarea>
+                <textarea class="form-control" name="alamat" id="exampleFormControlTextareaAlamat" rows="5"><?= $detail_user->alamat ?></textarea>
             </div>
             <div class="form-row mb-3">
                 <div class="col-6">
@@ -82,13 +87,13 @@
                 </div>
                 <div class="col-6">
                     <label for="exampleFormControlTextareaAlamat">No. Handphone</label>
-                    <input type="text" name="no_telp" class="form-control" id="inputNoHp" value="<?= $user->no_telp ?>">
+                    <input type="text" name="no_telp" class="form-control" id="inputNoHp" value="<?= $detail_user->no_telp ?>" maxlength="13">
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlFile1">Foto Profile</label> <br />
-                <img src="<?= base_url('assets/img/profile/') . $user->nama_gambar_profile ?>" class="pt-1 border rounded" width="150" height="150">
-                <input type="file" class="form-control-file pt-2" id="exampleFormControlFile1">
+                <label for="exampleFormControlFile1">Foto Profile<small id="emailHelp" class="form-text text-muted">Size tidak boleh lebih dari 5 MB dengan Ukuran Foto 1 x 1 (Kotak)</small></label> <br />
+                <img src="<?= base_url('assets/img/profile/') . $detail_user->nama_gambar_profile ?>" class="pt-1 rounded" width="150" height="150">
+                <input type="file" class="form-control-file pt-2" id="exampleFormControlFile1" name="gambar">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Simpan</button>

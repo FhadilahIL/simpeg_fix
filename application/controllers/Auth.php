@@ -7,6 +7,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User');
+        $this->load->helper('loguser_helper');
     }
 
     function cek_login()
@@ -21,12 +22,13 @@ class Auth extends CI_Controller
 
             if (password_verify($password, $user->password)) {
                 $data_user = array(
-                    'nama'      => $user->nama,
-                    'id'        => $user->id_pegawai,
-                    'nik'       => $user->nik,
-                    'password'  => $password,
-                    'role'      => $user->id_akses,
-                    'jabatan'   => $user->nama_jabatan
+                    'nama'          => $user->nama,
+                    'id'            => $user->id_pegawai,
+                    'nik'           => $user->nik,
+                    'role'          => $user->id_jabatan,
+                    'jabatan'       => $user->nama_jabatan,
+                    'id_divisi'     => $user->id_divisi,
+                    'nama_divisi'   => $user->nama_divisi
                 );
 
                 if ($data_user['role'] == 1) {
@@ -39,7 +41,7 @@ class Auth extends CI_Controller
                     $this->session->set_flashdata('pesan', 'User Belum Didaftarkan Hak Aksesnya');
                     redirect('guest/login_page');
                 }
-                userLog('Loggin', $data_user['id']);
+                userLog('User maelakukan Login Akun', $data_user['id']);
                 $this->session->set_userdata($data_user);
                 redirect('auth/cek_session');
             } else {
@@ -68,6 +70,7 @@ class Auth extends CI_Controller
 
     function logout()
     {
+        userLog('User melakukan Logout Akun', $this->session->userdata('id'));
         $this->session->sess_destroy();
         redirect(base_url());
     }

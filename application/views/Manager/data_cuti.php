@@ -18,7 +18,8 @@
                                 <th scope="col">No.</th>
                                 <th scope="col" class="nik">NIK</th>
                                 <th scope="col" class="nama-pegawai">Nama Pegawai</th>
-                                <th scope="col">Tanggal</th>
+                                <th scope="col">Awal Cuti</th>
+                                <th scope="col">Akhir Cuti</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -28,6 +29,7 @@
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>22/09/2019</td>
+                                <td>23/09/2019</td>
                                 <td><a href="#" class="btn btn-success">Terima</a> <a href="#" class="btn btn-danger detail">Tolak</a></td>
                             </tr>
                         </tbody>
