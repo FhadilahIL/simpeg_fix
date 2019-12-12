@@ -5,7 +5,7 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Tambah Cuti</h1>
             </div>
-            <form>
+            <form action="" method="post">
                 <div class="form-group">
                     <label for="exampleInputEmail1">NIK</label>
                     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
@@ -20,11 +20,19 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Tanggal Cuti</label>
-                    <input type="date" class="form-control">
+                    <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
+                    <input type="date" class="form-control" id="exampleInputTanggal">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+                    <label for="exampleInputEmail1">Tanggal AKhir Cuti</label>
+                    <input type="date" class="form-control" id="exampleInputTanggal">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Keterangan</label>
+                    <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Ajukan Cuti</button>
                 </div>
             </form>
             <!-- Content Row -->

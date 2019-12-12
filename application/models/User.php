@@ -69,18 +69,19 @@ class User extends CI_Model
         return $this->db->update('detail_user', $detail);
     }
 
-    function insert_data_detail_user($detail, $id)
+    function insert_data_detail_user($detail)
     {
         return $this->db->insert('detail_user', $detail);
     }
 
-    function get_pegawai()
+    function get_pegawai($id_divisi)
     {
         $this->db->select('nama, nik, email, password, nama_jabatan, nama_divisi, alamat, agama, jenis_kelamin, pendidikan, status, no_telp, nama_gambar_profile, tanggal_masuk');
         $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
         $this->db->join('detail_user', 'users.id_pegawai = detail_user.id_pegawai', 'inner');
         $this->db->join('divisi', 'users.id_divisi = users.id_divisi', 'inner');
         $this->db->where('jabatan.id_jabatan', 2);
+        $this->db->where('users.id_divisi', $id_divisi);
         $this->db->or_where('jabatan.id_jabatan', 3);
         return $this->db->get('users');
     }

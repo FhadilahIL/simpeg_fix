@@ -29,4 +29,9 @@ class Divisi extends CI_Model
         $this->db->where('users.id_jabatan', 1);
         return $this->db->get('users');
     }
+
+    function tambah_divisi($data)
+    {
+        return $this->db->insert($data);
+    }
 }

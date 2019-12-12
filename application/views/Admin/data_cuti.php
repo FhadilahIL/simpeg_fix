@@ -9,7 +9,7 @@
             <!-- Content Row -->
             <div class="row">
                 <div class="col mb-3">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah_cuti">Tambah Cuti</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah_cuti">Ajukan Cuti</button>
                 </div>
 
                 <!-- Modal Tambah Cuti -->
@@ -17,18 +17,43 @@
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Ajukan Cuti <b><?= $user->nama ?></b></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">NIK</label>
+                                    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->nik ?>" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Jenis Cuti</label>
+                                    <select id="inputState" class="form-control" name="jenis_cuti">
+                                        <?php foreach ($jenis_cuti as $jenis) { ?>
+                                            <option value="<?= $jenis->id_cuti ?>"><?= $jenis->jenis_cuti ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
+                                        <input type="date" class="form-control" id="exampleInputTanggal">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tanggal AKhir Cuti</label>
+                                        <input type="date" class="form-control" id="exampleInputTanggal">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Keterangan</label>
+                                        <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Ajukan Cuti</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -49,7 +74,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1.</th>
+                                <td scope="row">1.</td>
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>22/09/2019</td>

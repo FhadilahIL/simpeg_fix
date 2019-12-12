@@ -8,6 +8,7 @@ class Admin extends CI_Controller
         parent::__construct();
         $this->load->model('User');
         $this->load->model('Jabatan');
+        $this->load->model('Cuti');
         $this->load->model('Divisi');
         $this->load->model('News');
         if ($this->session->userdata('role') != 1) {
@@ -33,7 +34,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -54,11 +56,12 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
-        $data['daftar_pegawai'] = $this->User->get_pegawai()->result();
+        $data['daftar_pegawai'] = $this->User->get_pegawai($this->session->userdata('id_divisi'))->result();
         // $data['pegawai_user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         // $data['detail_pegawai'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
 
@@ -78,7 +81,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -102,10 +106,12 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), 'active', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $data['jenis_cuti'] = $this->Cuti->get_cuti()->result();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -122,7 +128,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -145,7 +152,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -167,7 +175,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
 
         $nik = $this->uri->segment(3);
@@ -229,7 +238,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -250,7 +260,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -272,7 +283,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
 
         $nik = $this->uri->segment(3);
@@ -484,7 +496,6 @@ class Admin extends CI_Controller
     function edit_pegawai()
     {
         $id = $this->input->post('id');
-        $nik = $this->input->post('nik');
         $password_plain = $this->input->post('password');
         $password_confirm = $this->input->post('password_confirm');
         $password_ecrypt = password_hash($password_plain, PASSWORD_DEFAULT);
@@ -616,7 +627,8 @@ class Admin extends CI_Controller
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
-            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper']
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -633,5 +645,36 @@ class Admin extends CI_Controller
     {
         $nik = $this->input->post('nik');
         redirect('admin/cari_data/' . $nik);
+    }
+
+    function tambah_divisi()
+    {
+        $data['judul_halaman'] = "Admin - Tambah Divisi";
+        $data['active'] = "";
+        $data['dashboard'] = base_url('admin');
+        $data['data_pribadi'] = base_url('admin/data_pribadi');
+        $admin = $this->User->cari_user_admin()->result();
+        $pegawai = $this->User->cari_user_pegawai()->result();
+        $manager = $this->User->cari_user_manager()->result();
+        $data['berita'] = $this->News->tampil_berita_index(5)->result();
+        $data['card'] = [
+            ['Pegawai', count($pegawai)],
+            ['Manager', count($manager)],
+            ['Admin', count($admin)]
+        ];
+        $data['menu'] = [
+            ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
+            ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/data_divisi'), 'active', 'fa-newspaper']
+        ];
+
+        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/navbar', $data);
+        $this->load->view('admin/tambah_divisi');
+        $this->load->view('templates/footer');
     }
 }
