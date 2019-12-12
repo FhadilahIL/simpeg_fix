@@ -21,9 +21,9 @@
                     </select>
                 </div>
                 <div id="element-cuti">
-                    
+
                 </div>
-                
+
                 <div class="form-group">
                     <button id="ajukan" type="submit" class="btn btn-primary btn-block" disabled>Ajukan Cuti</button>
                 </div>
@@ -37,31 +37,46 @@
             let cuti = document.getElementById('cuti');
             let ajukan = document.getElementById('ajukan');
             let elemenCuti = document.getElementById('element-cuti');
-            cuti.addEventListener('change',()=>{
-                let tgl_awal =  document.getElementById('tgl_awal');
-                let tgl_akhir =  document.getElementById('tgl_akhir');
-                let keterangan =  document.getElementById('keterangan');
-                if(cuti.value === 'kosong'){
+            cuti.addEventListener('change', () => {
+                let tgl_awal = document.getElementById('tgl_awal');
+                let tgl_akhir = document.getElementById('tgl_akhir');
+                let keterangan = document.getElementById('keterangan');
+                if (cuti.value === 'kosong') {
                     elemenCuti.removeChild(tgl_awal)
                     elemenCuti.removeChild(tgl_akhir)
                     elemenCuti.removeChild(keterangan)
                     ajukan.disabled = true;
-                }else{
-                    let html = '';
-                    html += `<div class="form-group" id="tgl_awal">
+                } else {
+                    if (cuti.value !== '1') {
+                        let html = '';
+                        html += `<div class="form-group" id="tgl_awal">
                                 <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
                                 <input type="date" class="form-control" id="exampleInputTanggal">
                             </div>
-                            <div class="form-group" id="tgl_akhir">
-                                <label for="exampleInputEmail1">Tanggal AKhir Cuti</label>
-                                <input type="date" class="form-control" id="exampleInputTanggal">
-                            </div>
+                            <div class="form-group" id="tgl_akhir"></div>
                             <div class="form-group" id="keterangan">
                                 <label for="exampleInputEmail1">Keterangan</label>
                                 <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
                             </div>`;
-                    elemenCuti.innerHTML = html;
-                    ajukan.disabled = false;
+                        elemenCuti.innerHTML = html;
+                        ajukan.disabled = false;
+                    } else {
+                        let html = '';
+                        html += `<div class="form-group" id="tgl_awal">
+                            <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
+                            <input type="date" class="form-control" id="exampleInputTanggal">
+                        </div>
+                        <div class="form-group" id="tgl_akhir">
+                            <label for="exampleInputEmail1">Tanggal Akhir Cuti</label>
+                            <input type="date" class="form-control" id="exampleInputTanggal">
+                        </div>
+                        <div class="form-group" id="keterangan">
+                            <label for="exampleInputEmail1">Keterangan</label>
+                            <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                        </div>`;
+                        elemenCuti.innerHTML = html;
+                        ajukan.disabled = false;
+                    }
                 }
             })
         </script>
