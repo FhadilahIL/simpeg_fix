@@ -55,7 +55,7 @@
                                     <td><?= $pegawai->nik; ?></td>
                                     <td><?= $pegawai->nama; ?></td>
                                     <td><?= $pegawai->nama_jabatan; ?></td>
-                                    <td><a class="btn btn-primary detail" href="<?= base_url('admin/ubah_data/' . $pegawai->nik) ?>">Ubah</a> <a class="btn btn-primary detail" href="#">Delete</a> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetail<?= $pegawai->nik ?>">Detail Pegawai</button></td>
+                                    <td><a class="btn btn-primary detail" href="<?= base_url('admin/ubah_data/' . $pegawai->nik) ?>">Ubah</a> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetail<?= $pegawai->nik ?>">Detail Pegawai</button></td>
                                 </tr>
                                 <!-- Modal Detail -->
 

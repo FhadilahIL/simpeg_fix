@@ -32,9 +32,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="sticky-footer bg-dark text-light fixed-bottom">
+    <footer class="p-2 bg-dark text-light fixed-bottom">
         <div class="copyright text-center">
-            <span>Copyright &copy; SIMPEG 2019 || Designed By Muhammad Ilham Fhadilah</span>
+            <span>Copyright &copy; PT. PDH <?= date('Y') ?> || Designed By Muhammad Ilham Fhadilah</span>
         </div>
     </footer>
     <!-- End of Footer -->

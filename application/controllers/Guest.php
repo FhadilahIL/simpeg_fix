@@ -41,4 +41,17 @@ class Guest extends CI_Controller
             show_404();
         }
     }
+
+    function lupa_password()
+    {
+        $this->load->view('guest/lupa_password');
+    }
+    function ubah_password()
+    {
+        if (empty($this->session->userdata('nik'))) {
+            redirect(base_url('guest/login_page'));
+        } else {
+            $this->load->view('guest/ubah_password');
+        }
+    }
 }

@@ -10,28 +10,16 @@ class Divisi extends CI_Model
 
     function pegawai_divisi($id_divisi)
     {
-        $this->db->select('nama, nik, email, password, nama_jabatan, nama_divisi, alamat, agama, jenis_kelamin, pendidikan, status, no_telp, nama_gambar_profile, tanggal_masuk');
-        $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
-        $this->db->join('detail_user', 'users.id_pegawai = detail_user.id_pegawai', 'inner');
-        $this->db->join('divisi', 'users.id_divisi = users.id_divisi', 'inner');
-        $this->db->where('users.id_divisi', $id_divisi);
-        $this->db->where('users.id_jabatan', 2);
-        return $this->db->get('users');
+        return $this->db->query("SELECT * FROM `users` INNER JOIN detail_user ON users.id_pegawai = detail_user.id_pegawai INNER JOIN jabatan on users.id_jabatan = jabatan.id_jabatan INNER JOIN divisi ON users.id_divisi = divisi.id_divisi WHERE users.id_divisi = '$id_divisi' AND users.id_jabatan = '2'");
     }
 
     function admin_divisi($id_divisi)
     {
-        $this->db->select('nama, nik, email, password, nama_jabatan, nama_divisi, alamat, agama, jenis_kelamin, pendidikan, status, no_telp, nama_gambar_profile, tanggal_masuk');
-        $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
-        $this->db->join('detail_user', 'users.id_pegawai = detail_user.id_pegawai', 'inner');
-        $this->db->join('divisi', 'users.id_divisi = users.id_divisi', 'inner');
-        $this->db->where('users.id_divisi', $id_divisi);
-        $this->db->where('users.id_jabatan', 1);
-        return $this->db->get('users');
+        return $this->db->query("SELECT * FROM `users` INNER JOIN detail_user ON users.id_pegawai = detail_user.id_pegawai INNER JOIN jabatan on users.id_jabatan = jabatan.id_jabatan INNER JOIN divisi ON users.id_divisi = divisi.id_divisi WHERE users.id_divisi = '$id_divisi' AND users.id_jabatan = '1'");
     }
 
     function tambah_divisi($data)
     {
-        return $this->db->insert($data);
+        $this->db->insert('divisi', $data);
     }
 }

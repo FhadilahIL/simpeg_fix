@@ -33,27 +33,30 @@ class User extends CI_Model
         return $this->db->get('users');
     }
 
-    function cari_user_admin()
+    function cari_user_admin($id_divisi)
     {
         $this->db->select('*');
         $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
         $this->db->where('jabatan.id_jabatan', 1);
+        $this->db->where('users.id_divisi', $id_divisi);
         return $this->db->get('users');
     }
 
-    function cari_user_pegawai()
+    function cari_user_pegawai($id_divisi)
     {
         $this->db->select('*');
         $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
         $this->db->where('jabatan.id_jabatan', 2);
+        $this->db->where('users.id_divisi', $id_divisi);
         return $this->db->get('users');
     }
 
-    function cari_user_manager()
+    function cari_user_manager($id_divisi)
     {
         $this->db->select('*');
         $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
         $this->db->where('jabatan.id_jabatan', 3);
+        $this->db->where('users.id_divisi', $id_divisi);
         return $this->db->get('users');
     }
 
@@ -76,14 +79,7 @@ class User extends CI_Model
 
     function get_pegawai($id_divisi)
     {
-        $this->db->select('nama, nik, email, password, nama_jabatan, nama_divisi, alamat, agama, jenis_kelamin, pendidikan, status, no_telp, nama_gambar_profile, tanggal_masuk');
-        $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
-        $this->db->join('detail_user', 'users.id_pegawai = detail_user.id_pegawai', 'inner');
-        $this->db->join('divisi', 'users.id_divisi = users.id_divisi', 'inner');
-        $this->db->where('jabatan.id_jabatan', 2);
-        $this->db->where('users.id_divisi', $id_divisi);
-        $this->db->or_where('jabatan.id_jabatan', 3);
-        return $this->db->get('users');
+        return $this->db->query("SELECT * FROM `users` INNER JOIN detail_user ON users.id_pegawai = detail_user.id_pegawai INNER JOIN jabatan on users.id_jabatan = jabatan.id_jabatan INNER JOIN divisi ON users.id_divisi = divisi.id_divisi WHERE users.id_divisi = '$id_divisi' AND users.id_jabatan = '2' OR users.id_divisi = '$id_divisi' AND users.id_jabatan = '3'");
     }
 
     function input_user($user)
@@ -103,14 +99,9 @@ class User extends CI_Model
         return $this->db->get('users');
     }
 
-    function cari_nik_pegawai($nik)
+    function cari_nik_pegawai($id_divisi, $nik)
     {
-        $this->db->select('nama, nik, email, password, nama_jabatan, nama_divisi, alamat, agama, jenis_kelamin, pendidikan, status, no_telp, nama_gambar_profile, tanggal_masuk');
-        $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
-        $this->db->join('detail_user', 'users.id_pegawai = detail_user.id_pegawai', 'inner');
-        $this->db->join('divisi', 'users.id_divisi = users.id_divisi', 'inner');
-        $this->db->like('nik', $nik);
-        return $this->db->get('users');
+        return $this->db->query("SELECT * FROM `users` INNER JOIN detail_user ON users.id_pegawai = detail_user.id_pegawai INNER JOIN jabatan on users.id_jabatan = jabatan.id_jabatan INNER JOIN divisi ON users.id_divisi = divisi.id_divisi WHERE users.id_divisi = '$id_divisi' AND users.id_jabatan != '1' AND nik LIKE '%$nik%'");
     }
 
     function cari_nama_manager($nama)
@@ -120,13 +111,18 @@ class User extends CI_Model
 
     function manager_cari_pegawai_admin($id_divisi, $id_jabatan, $nik)
     {
-        $this->db->select('nama, nik, email, password, nama_jabatan, nama_divisi, alamat, agama, jenis_kelamin, pendidikan, status, no_telp, nama_gambar_profile, tanggal_masuk');
-        $this->db->join('jabatan', 'jabatan.id_jabatan = users.id_jabatan', 'inner');
-        $this->db->join('detail_user', 'users.id_pegawai = detail_user.id_pegawai', 'inner');
-        $this->db->join('divisi', 'users.id_divisi = users.id_divisi', 'inner');
-        $this->db->like('nik', $nik);
-        $this->db->where('users.id_jabatan', $id_jabatan);
-        $this->db->where('users.id_divisi', $id_divisi);
+        return $this->db->query("SELECT * FROM `users` INNER JOIN detail_user ON users.id_pegawai = detail_user.id_pegawai INNER JOIN jabatan on users.id_jabatan = jabatan.id_jabatan INNER JOIN divisi ON users.id_divisi = divisi.id_divisi WHERE users.id_divisi = '$id_divisi' AND users.id_jabatan = '$id_jabatan' AND nik LIKE '%$nik%'");
+    }
+
+    function cari_data($nik)
+    {
+        $this->db->where('nik', $nik);
         return $this->db->get('users');
+    }
+
+    function update_password($nik, $data)
+    {
+        $this->db->where('nik', $nik);
+        return $this->db->update('users', $data);
     }
 }

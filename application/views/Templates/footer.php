@@ -4,7 +4,7 @@
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
     <div class="my-auto copyright text-center">
-        <span>Copyright &copy; SIMPEG 2019 || Designed By Muhammad Ilham Fhadilah</span>
+        <span>Copyright &copy; PT. PDH <?= date('Y') ?> || Designed By Muhammad Ilham Fhadilah</span>
     </div>
 </footer>
 

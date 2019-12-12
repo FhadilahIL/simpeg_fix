@@ -5,8 +5,8 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex" href="<?= base_url() . $this->session->userdata['akses']; ?>">
-            <div class="sidebar-brand-text text-left brand">SIMPEG</div>
+        <a class="sidebar-brand d-flex" href="<?= base_url($this->session->userdata['akses']) ?>">
+            <div class="sidebar-brand-text text-left brand">PT. PDH</div>
         </a>
 
         <!-- Divider -->

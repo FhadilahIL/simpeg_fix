@@ -22,9 +22,10 @@ class Admin extends CI_Controller
         $data['active'] = "active";
         $data['dashboard'] = base_url('admin');
         $data['data_pribadi'] = base_url('admin/data_pribadi');
-        $admin = $this->User->cari_user_admin()->result();
-        $pegawai = $this->User->cari_user_pegawai()->result();
-        $manager = $this->User->cari_user_manager()->result();
+        $id_divisi = $this->session->userdata('id_divisi');
+        $admin = $this->User->cari_user_admin($id_divisi)->result();
+        $pegawai = $this->User->cari_user_pegawai($id_divisi)->result();
+        $manager = $this->User->cari_user_manager($id_divisi)->result();
         $data['berita'] = $this->News->tampil_berita_index(5)->result();
         $data['card'] = [
             ['Pegawai', count($pegawai)],
@@ -632,7 +633,7 @@ class Admin extends CI_Controller
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
-        $data['daftar_pegawai'] = $this->User->cari_nik_pegawai($nik)->result();
+        $data['daftar_pegawai'] = $this->User->cari_nik_pegawai($this->session->userdata('id_divisi'), $nik)->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -653,15 +654,7 @@ class Admin extends CI_Controller
         $data['active'] = "";
         $data['dashboard'] = base_url('admin');
         $data['data_pribadi'] = base_url('admin/data_pribadi');
-        $admin = $this->User->cari_user_admin()->result();
-        $pegawai = $this->User->cari_user_pegawai()->result();
-        $manager = $this->User->cari_user_manager()->result();
-        $data['berita'] = $this->News->tampil_berita_index(5)->result();
-        $data['card'] = [
-            ['Pegawai', count($pegawai)],
-            ['Manager', count($manager)],
-            ['Admin', count($admin)]
-        ];
+
         $data['menu'] = [
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
@@ -676,5 +669,23 @@ class Admin extends CI_Controller
         $this->load->view('templates/navbar', $data);
         $this->load->view('admin/tambah_divisi');
         $this->load->view('templates/footer');
+    }
+
+    function input_divisi()
+    {
+        $nama_divisi = $this->input->post('nama_divisi');
+        $data = [
+            'id_divisi'     => '',
+            'nama_divisi'   => $nama_divisi
+        ];
+
+        if ($nama_divisi != '') {
+            $this->Divisi->tambah_divisi($data);
+            $this->session->set_flashdata('pesan_berhasil', 'Berhasil Menambahkan Divisi');
+            redirect(base_url('admin/tambah_divisi'));
+        } else {
+            $this->session->set_flashdata('pesan_gagal', 'Gagal Menambahkan Divisi. Nama Harus Diisi');
+            redirect(base_url('admin/tambah_divisi'));
+        }
     }
 }

@@ -37,7 +37,7 @@
                             <div class="col">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Silahkan Login!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Silahkan Masukan Data Diri Anda!</h1>
                                     </div>
                                     <?php if ($this->session->flashdata('pesan')) { ?>
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -46,26 +46,19 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                    <?php } elseif ($this->session->flashdata('pesan_berhasil')) { ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong>Berhasil!!!</strong> <?= $this->session->flashdata('pesan_berhasil') ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
                                     <?php } ?>
-                                    <form class="user" action="<?= base_url('auth/cek_login') ?>" method="post">
+                                    <form class="user" action="<?= base_url('auth/ubah_password') ?>" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" placeholder="Silahkan Masukan NIK / Email" name="username">
+                                            <input type="text" class="form-control form-control-user" placeholder="Silahkan Masukan NIK" name="nik">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password" placeholder="Silahkan Masukan Password">
-                                        </div>
-                                        <div class="text-right mr-3 mt-n2 mb-2">
-                                            <a class="small" href="<?= base_url('guest/lupa_password') ?>">Lupa Password?</a>
+                                            <input type="email" class="form-control form-control-user" name="email" placeholder="Silahkan Masukan Email">
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-user btn-block">Masuk</button>
+                                            <input type="nama" class="form-control form-control-user" name="nama" placeholder="Silahkan Masukan Nama Lengkap Anda">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">Submit</button>
                                         </div>
                                         <div class="separate">
                                             <hr />

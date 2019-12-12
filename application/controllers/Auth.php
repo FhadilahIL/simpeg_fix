@@ -75,8 +75,57 @@ class Auth extends CI_Controller
         redirect(base_url());
     }
 
-    function error_page()
+    function ubah_password()
     {
-        redirect($_SERVER['HTTP_REFERER']);
+        $nik = $this->input->post('nik');
+        $email = $this->input->post('email');
+        $nama = $this->input->post('nama');
+        $data = $this->User->cari_data($nik);
+        if ($data->result()) {
+            $user = $data->row();
+            if ($user->email == $email) {
+                if ($user->nama == $nama) {
+                    $data = [
+                        'nik'   => $user->nik
+                    ];
+                    $this->session->set_userdata($data);
+                    redirect('guest/ubah_password');
+                } else {
+                    $this->session->set_flashdata('pesan', 'Nama Yang anda Masukan Tidak Sesuai');
+                    redirect(base_url('guest/lupa_password'));
+                }
+            } else {
+                $this->session->set_flashdata('pesan', 'Email Yang anda Masukan Tidak Sesuai');
+                redirect(base_url('guest/lupa_password'));
+            }
+        } else {
+            $this->session->set_flashdata('pesan', 'Data Yang anda Masukan Tidak Sesuai');
+            redirect(base_url('guest/lupa_password'));
+        }
+    }
+
+    function change_password()
+    {
+        $nik = $this->session->userdata('nik');
+        $password = $this->input->post('password');
+        $password_confirm = $this->input->post('password_confirm');
+
+        if ($password === $password_confirm) {
+            if (($password != "") && ($password_confirm != "")) {
+                $data = [
+                    'password' => password_hash($password, PASSWORD_DEFAULT)
+                ];
+                $this->User->update_password($nik, $data);
+                $this->session->unset_userdata('nik');
+                $this->session->set_flashdata('pesan_berhasil', 'Password Berhasil Diubah. Silahkan Login');
+                redirect('guest/login_page');
+            } else {
+                $this->session->set_flashdata('pesan', 'Password Harus Diisi');
+                redirect('guest/ubah_password');
+            }
+        } else {
+            $this->session->set_flashdata('pesan', 'Password Tidak Sama. Silahkan Isi Ulang Password Baru');
+            redirect(base_url('guest/ubah_password'));
+        }
     }
 }
