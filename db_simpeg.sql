@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2019 at 03:59 PM
+-- Generation Time: Dec 12, 2019 at 06:51 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -42,8 +42,7 @@ CREATE TABLE `berita` (
 --
 
 INSERT INTO `berita` (`id_berita`, `id_pegawai`, `judul_berita`, `nama_gambar_berita`, `tanggal`, `isi_berita`) VALUES
-(19, 1, 'Kenaikan Gaji', 'Kenaikan_Gaji.jpg', '2019-12-05', 'ajjdadjkada'),
-(24, 1, 'Kenaikan Jabatan', 'Kenaikan_Jabatan.jpg', '2019-12-05', 'Mantab Mul');
+(25, 13, 'Kenaikan Gaji', 'Kenaikan_Gaji.jpg', '2019-12-10', 'Apa Aja Boleh Mul');
 
 -- --------------------------------------------------------
 
@@ -53,11 +52,18 @@ INSERT INTO `berita` (`id_berita`, `id_pegawai`, `judul_berita`, `nama_gambar_be
 
 CREATE TABLE `cuti` (
   `id_cuti` int(11) NOT NULL,
-  `id_pegawai` int(11) NOT NULL,
-  `awal_cuti` date NOT NULL,
-  `akhir_cuti` date NOT NULL,
-  `jenis_cuti` varchar(30) NOT NULL
+  `jenis_cuti` varchar(30) NOT NULL,
+  `jumlah_cuti` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cuti`
+--
+
+INSERT INTO `cuti` (`id_cuti`, `jenis_cuti`, `jumlah_cuti`) VALUES
+(1, 'Cuti Bulanan', 12),
+(2, 'Cuti Penting', 8),
+(3, 'Cuti Bersalin', 60);
 
 -- --------------------------------------------------------
 
@@ -69,28 +75,55 @@ CREATE TABLE `cutipegawai` (
   `id_cuti` int(11) NOT NULL,
   `id_pegawai` int(11) NOT NULL,
   `id_cutipegawai` int(11) NOT NULL,
+  `awal_cuti` date NOT NULL,
+  `akhir_cuti` date NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hak_akses`
+-- Table structure for table `detail_user`
 --
 
-CREATE TABLE `hak_akses` (
-  `id_akses` int(11) NOT NULL,
-  `akses` varchar(15) NOT NULL
+CREATE TABLE `detail_user` (
+  `id_pegawai` int(11) NOT NULL,
+  `alamat` text NOT NULL,
+  `agama` varchar(10) NOT NULL,
+  `jenis_kelamin` varchar(1) NOT NULL,
+  `pendidikan` varchar(3) NOT NULL,
+  `status` varchar(15) NOT NULL,
+  `no_telp` varchar(13) NOT NULL,
+  `nama_gambar_profile` text NOT NULL,
+  `tanggal_masuk` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `hak_akses`
+-- Dumping data for table `detail_user`
 --
 
-INSERT INTO `hak_akses` (`id_akses`, `akses`) VALUES
-(1, 'Admin'),
-(2, 'Pegawai'),
-(3, 'Manager');
+INSERT INTO `detail_user` (`id_pegawai`, `alamat`, `agama`, `jenis_kelamin`, `pendidikan`, `status`, `no_telp`, `nama_gambar_profile`, `tanggal_masuk`) VALUES
+(13, 'Buaran, Tangerang Selatan', 'Islam', 'L', 'S2', 'Belum Menikah', '0896771869623', '70711300746074108a68ad48d33671b9.jpeg', '2018-08-17'),
+(46, 'Serang, Banten', 'Islam', 'L', 'D4', 'Menikah', '089977889901', 'Aris_Indrawan.jpeg', '2019-12-09'),
+(47, 'Sawah Baru, Tanngerang Selatan', 'Islam', 'L', 'SMA', 'Menikah', '087788991121', 'd20df993237ee2e5bc8a67a515d3c641.jpeg', '2019-12-10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `divisi`
+--
+
+CREATE TABLE `divisi` (
+  `id_divisi` int(11) NOT NULL,
+  `nama_divisi` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `divisi`
+--
+
+INSERT INTO `divisi` (`id_divisi`, `nama_divisi`) VALUES
+(1, 'M');
 
 -- --------------------------------------------------------
 
@@ -100,31 +133,17 @@ INSERT INTO `hak_akses` (`id_akses`, `akses`) VALUES
 
 CREATE TABLE `jabatan` (
   `nama_jabatan` varchar(30) NOT NULL,
-  `id_jabatan` int(11) NOT NULL,
-  `id_akses` int(1) NOT NULL
+  `id_jabatan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jabatan`
 --
 
-INSERT INTO `jabatan` (`nama_jabatan`, `id_jabatan`, `id_akses`) VALUES
-('Admin L', 1, 1),
-('Pegawai M', 2, 2),
-('Manager N', 3, 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `keluarga`
---
-
-CREATE TABLE `keluarga` (
-  `id_keluarga` int(11) NOT NULL,
-  `id_pegawai` int(11) NOT NULL,
-  `nama_keluarga` varchar(30) NOT NULL,
-  `keterangan` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `jabatan` (`nama_jabatan`, `id_jabatan`) VALUES
+('Admin', 1),
+('Pegawai', 2),
+('Manager', 3);
 
 -- --------------------------------------------------------
 
@@ -135,7 +154,7 @@ CREATE TABLE `keluarga` (
 CREATE TABLE `logs` (
   `id_logs` int(11) NOT NULL,
   `kegiatan` text NOT NULL,
-  `waktu` date NOT NULL,
+  `waktu` datetime NOT NULL,
   `id_pegawai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -144,47 +163,54 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id_logs`, `kegiatan`, `waktu`, `id_pegawai`) VALUES
-(2, 'Loggin', '2019-12-03', 1),
-(3, 'Loggin', '2019-12-03', 1),
-(4, 'Loggin', '2019-12-03', 1),
-(5, 'Loggin', '2019-12-04', 1),
-(6, 'Loggin', '2019-12-04', 1),
-(7, 'Loggin', '2019-12-04', 1),
-(8, 'Loggin', '2019-12-04', 1),
-(9, 'Loggin', '2019-12-05', 5),
-(10, 'Loggin', '2019-12-05', 3),
-(11, 'Loggin', '2019-12-05', 5),
-(12, 'Loggin', '2019-12-05', 5),
-(13, 'Loggin', '2019-12-05', 5),
-(14, 'Loggin', '2019-12-05', 1),
-(15, 'Loggin', '2019-12-05', 5),
-(16, 'Loggin', '2019-12-05', 3),
-(17, 'Loggin', '2019-12-05', 1),
-(18, 'Loggin', '2019-12-05', 5),
-(19, 'Loggin', '2019-12-05', 3),
-(20, 'Loggin', '2019-12-05', 1),
-(21, 'Loggin', '2019-12-05', 1),
-(22, 'Loggin', '2019-12-05', 1),
-(23, 'Loggin', '2019-12-06', 1),
-(24, 'Loggin', '2019-12-06', 5),
-(25, 'Loggin', '2019-12-06', 1),
-(26, 'Loggin', '2019-12-06', 1),
-(27, 'Loggin', '2019-12-06', 1),
-(28, 'Loggin', '2019-12-06', 1),
-(29, 'Loggin', '2019-12-06', 1),
-(30, 'Loggin', '2019-12-06', 1),
-(31, 'Loggin', '2019-12-06', 1),
-(32, 'Loggin', '2019-12-06', 1),
-(33, 'Loggin', '2019-12-06', 1),
-(34, 'Loggin', '2019-12-06', 1),
-(35, 'Loggin', '2019-12-06', 1),
-(36, 'Loggin', '2019-12-06', 1),
-(37, 'Loggin', '2019-12-06', 1),
-(38, 'Loggin', '2019-12-06', 1),
-(39, 'Loggin', '2019-12-06', 1),
-(40, 'Loggin', '2019-12-06', 5),
-(41, 'Loggin', '2019-12-06', 1),
-(42, 'Loggin', '2019-12-06', 5);
+(60, 'User maelakukan Login Akun', '2019-12-10 02:34:18', 13),
+(61, 'User maelakukan Login Akun', '2019-12-10 07:43:41', 13),
+(62, 'User maelakukan Login Akun', '2019-12-10 20:10:17', 13),
+(63, 'User melakukan Logout Akun', '2019-12-10 20:12:26', 13),
+(64, 'User maelakukan Login Akun', '2019-12-10 20:12:42', 46),
+(65, 'User melakukan Logout Akun', '2019-12-10 20:24:19', 46),
+(66, 'User maelakukan Login Akun', '2019-12-10 20:24:27', 13),
+(67, 'User melakukan Logout Akun', '2019-12-10 21:28:50', 13),
+(68, 'User maelakukan Login Akun', '2019-12-10 21:29:20', 46),
+(69, 'User melakukan Logout Akun', '2019-12-10 21:41:12', 46),
+(70, 'User maelakukan Login Akun', '2019-12-10 21:41:22', 46),
+(71, 'User melakukan Logout Akun', '2019-12-10 21:58:58', 46),
+(72, 'User maelakukan Login Akun', '2019-12-10 22:00:32', 13),
+(73, 'User maelakukan Login Akun', '2019-12-11 08:56:26', 13),
+(74, 'User melakukan Logout Akun', '2019-12-11 09:19:05', 13),
+(75, 'User maelakukan Login Akun', '2019-12-11 09:19:14', 46),
+(76, 'User melakukan Logout Akun', '2019-12-11 09:43:44', 46),
+(77, 'User maelakukan Login Akun', '2019-12-11 09:43:56', 47),
+(78, 'User melakukan Logout Akun', '2019-12-11 09:58:15', 47),
+(79, 'User maelakukan Login Akun', '2019-12-11 09:58:38', 47),
+(80, 'User melakukan Logout Akun', '2019-12-11 10:01:35', 47),
+(81, 'User maelakukan Login Akun', '2019-12-11 10:02:06', 47),
+(82, 'User melakukan Logout Akun', '2019-12-11 10:23:17', 47),
+(83, 'User maelakukan Login Akun', '2019-12-11 10:23:26', 46),
+(84, 'User melakukan Logout Akun', '2019-12-11 10:24:01', 46),
+(85, 'User maelakukan Login Akun', '2019-12-11 20:58:51', 13),
+(86, 'User melakukan Logout Akun', '2019-12-11 21:00:42', 13),
+(87, 'User maelakukan Login Akun', '2019-12-11 21:01:11', 47),
+(88, 'User melakukan Logout Akun', '2019-12-11 22:50:43', 47),
+(89, 'User maelakukan Login Akun', '2019-12-11 22:50:50', 13),
+(90, 'User melakukan Logout Akun', '2019-12-11 23:04:27', 13),
+(91, 'User maelakukan Login Akun', '2019-12-11 23:04:39', 47),
+(92, 'User melakukan Logout Akun', '2019-12-11 23:43:00', 47),
+(93, 'User maelakukan Login Akun', '2019-12-11 23:43:09', 46),
+(94, 'User melakukan Logout Akun', '2019-12-11 23:48:56', 46),
+(95, 'User maelakukan Login Akun', '2019-12-11 23:49:05', 13),
+(96, 'User melakukan Logout Akun', '2019-12-11 23:58:19', 13),
+(97, 'User maelakukan Login Akun', '2019-12-11 23:58:29', 46),
+(98, 'User melakukan Logout Akun', '2019-12-12 00:00:57', 46),
+(99, 'User maelakukan Login Akun', '2019-12-12 00:01:06', 47),
+(100, 'User melakukan Logout Akun', '2019-12-12 00:01:17', 47),
+(101, 'User maelakukan Login Akun', '2019-12-12 11:31:44', 46),
+(102, 'User melakukan Logout Akun', '2019-12-12 12:01:17', 46),
+(103, 'User maelakukan Login Akun', '2019-12-12 12:01:25', 13),
+(104, 'User melakukan Logout Akun', '2019-12-12 12:34:33', 13),
+(105, 'User maelakukan Login Akun', '2019-12-12 12:34:52', 46),
+(106, 'User melakukan Logout Akun', '2019-12-12 12:46:11', 46),
+(107, 'User maelakukan Login Akun', '2019-12-12 12:46:19', 13);
 
 -- --------------------------------------------------------
 
@@ -196,27 +222,20 @@ CREATE TABLE `users` (
   `id_pegawai` int(11) NOT NULL,
   `nik` varchar(16) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `alamat` text NOT NULL,
-  `agama` varchar(10) NOT NULL,
-  `jenis_kelamin` varchar(1) NOT NULL,
-  `pendidikan` varchar(3) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `status` varchar(15) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `no_telp` varchar(13) NOT NULL,
-  `nama_gambar_profile` text NOT NULL,
   `id_jabatan` int(11) NOT NULL,
-  `tanggal_masuk` date NOT NULL
+  `id_divisi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_pegawai`, `nik`, `nama`, `alamat`, `agama`, `jenis_kelamin`, `pendidikan`, `email`, `status`, `password`, `no_telp`, `nama_gambar_profile`, `id_jabatan`, `tanggal_masuk`) VALUES
-(1, '3674010801990005', 'Muhammad Ilham Fhadilah', 'Kp. Setu Rt. 02/01 No. 53 Kel. Buaran, Kec. Serpong', 'Islam', 'L', 'S2', 'admin-ilham@simpeg.com', 'Belum Menikah', '$2y$10$rsmjcMVWpuxC.huS7qDy/uvjvhNYr0jcfZUUg9sYYFzVBA2JS86GK', '089677186962', '7facc91d3dbe2da8a2bae9f5ad974cb3.jpeg', 1, '2019-11-04'),
-(3, '3674000101990005', 'Bagas Kurniawan', 'Sawah Baru', 'Islam', 'L', 'S1', 'manager-bagas@simpeg.com', 'Menikah', '$2y$10$WaMwVp8xzE4r3E3Yhe.HKuqIefxNcBGdBkv3xMqdW3wHpMRDUXkGa', '089677186964', 'default.svg', 3, '2019-11-28'),
-(5, '3674000101990006', 'Aris Indrawan', 'Cikande, Serang, Banten', 'Islam', 'L', 'SMA', 'pegawai-aris@simpeg.com', 'Menikah', '$2y$10$gUa9xuB5USOtuT.ob98j5exeeLQxRy83.uu3b2l.3jMybM97nUh/C', '089677186967', 'default.svg', 2, '2019-11-28');
+INSERT INTO `users` (`id_pegawai`, `nik`, `nama`, `email`, `password`, `id_jabatan`, `id_divisi`) VALUES
+(13, '3674010801990005', 'Muhammad Ilham Fhadilah', 'admin-ilham@simpeg.com', '$2y$10$1mKpyn22vnB9j3kW.P4Bx.C2vKUOdpSZG0MScErIk7EaREUJ92eqa', 1, 1),
+(46, '3674000101990006', 'Aris Indrawan', 'pegawai-aris@simpeg.com', '$2y$10$.Rp9Y6PNeFAC7XoEmlPHNert.VUPWiMAC/kzvidMkSvNeq22ifMty', 2, 1),
+(47, '3674000101990007', 'Bagas Kurniawan', 'manager-bagas@simpeg.com', '$2y$10$y3HPlq1TrMPAouLe94TU.u7VJLHx3KgH04PIv8FhCQoN3CnIqDHgS', 3, 1);
 
 --
 -- Indexes for dumped tables
@@ -233,39 +252,33 @@ ALTER TABLE `berita`
 -- Indexes for table `cuti`
 --
 ALTER TABLE `cuti`
-  ADD PRIMARY KEY (`id_cuti`),
-  ADD UNIQUE KEY `id` (`id_cuti`),
-  ADD UNIQUE KEY `id_pegawai_2` (`id_pegawai`),
-  ADD KEY `id_pegawai` (`id_pegawai`);
+  ADD PRIMARY KEY (`id_cuti`);
 
 --
 -- Indexes for table `cutipegawai`
 --
 ALTER TABLE `cutipegawai`
   ADD PRIMARY KEY (`id_cutipegawai`),
-  ADD UNIQUE KEY `id_pegawai` (`id_pegawai`),
-  ADD UNIQUE KEY `id_cuti` (`id_cuti`);
+  ADD KEY `id_pegawai` (`id_pegawai`),
+  ADD KEY `id_cuti` (`id_cuti`);
 
 --
--- Indexes for table `hak_akses`
+-- Indexes for table `detail_user`
 --
-ALTER TABLE `hak_akses`
-  ADD PRIMARY KEY (`id_akses`);
+ALTER TABLE `detail_user`
+  ADD KEY `id_pegawai` (`id_pegawai`);
+
+--
+-- Indexes for table `divisi`
+--
+ALTER TABLE `divisi`
+  ADD PRIMARY KEY (`id_divisi`);
 
 --
 -- Indexes for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  ADD PRIMARY KEY (`id_jabatan`),
-  ADD KEY `id_akses` (`id_akses`);
-
---
--- Indexes for table `keluarga`
---
-ALTER TABLE `keluarga`
-  ADD PRIMARY KEY (`id_keluarga`),
-  ADD UNIQUE KEY `id` (`id_keluarga`),
-  ADD UNIQUE KEY `nik` (`id_pegawai`);
+  ADD PRIMARY KEY (`id_jabatan`);
 
 --
 -- Indexes for table `logs`
@@ -279,7 +292,8 @@ ALTER TABLE `logs`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_pegawai`),
-  ADD KEY `id_jabatan` (`id_jabatan`);
+  ADD KEY `id_jabatan` (`id_jabatan`),
+  ADD KEY `id_divisi` (`id_divisi`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -289,25 +303,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cutipegawai`
 --
 ALTER TABLE `cutipegawai`
-  MODIFY `id_cutipegawai` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cutipegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `hak_akses`
+-- AUTO_INCREMENT for table `divisi`
 --
-ALTER TABLE `hak_akses`
-  MODIFY `id_akses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `divisi`
+  MODIFY `id_divisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -316,22 +330,16 @@ ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `keluarga`
---
-ALTER TABLE `keluarga`
-  MODIFY `id_keluarga` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
@@ -341,44 +349,33 @@ ALTER TABLE `users`
 -- Constraints for table `berita`
 --
 ALTER TABLE `berita`
-  ADD CONSTRAINT `berita_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Constraints for table `cuti`
---
-ALTER TABLE `cuti`
-  ADD CONSTRAINT `cuti_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `berita_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `cutipegawai`
 --
 ALTER TABLE `cutipegawai`
   ADD CONSTRAINT `cutipegawai_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `cutipegawai_ibfk_2` FOREIGN KEY (`id_cuti`) REFERENCES `cuti` (`id_cuti`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `cutipegawai_ibfk_2` FOREIGN KEY (`id_cuti`) REFERENCES `cuti` (`id_cuti`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `jabatan`
+-- Constraints for table `detail_user`
 --
-ALTER TABLE `jabatan`
-  ADD CONSTRAINT `jabatan_ibfk_1` FOREIGN KEY (`id_akses`) REFERENCES `hak_akses` (`id_akses`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `keluarga`
---
-ALTER TABLE `keluarga`
-  ADD CONSTRAINT `keluarga_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `detail_user`
+  ADD CONSTRAINT `detail_user_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `logs`
 --
 ALTER TABLE `logs`
-  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`);
+  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `users` (`id_pegawai`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_divisi`) REFERENCES `divisi` (`id_divisi`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
