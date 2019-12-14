@@ -28,7 +28,7 @@
                                     <td><?= $pegawai->nik ?></td>
                                     <td><?= $pegawai->nama ?></td>
                                     <td><?= $pegawai->nama_jabatan ?></td>
-                                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetail<?= $pegawai->nik ?>">Detail Pegawai</button> <a class="btn btn-primary detail" href="#">Delete</a></td>
+                                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDetail<?= $pegawai->nik ?>">Detail Pegawai</button> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete<?= $pegawai->nik ?>">Delete</button></td>
                                 </tr>
                                 <div class="modal fade" id="modalDetail<?= $pegawai->nik ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -133,6 +133,26 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Delete -->
+                                <div class="modal fade" id="modalDelete<?= $pegawai->nik ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalScrollableTitle">Hapus Data <b><?= $pegawai->nama ?></b></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Apakah anda yakin ingin menghapus data <b><?= $pegawai->nama ?></b>?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <a href="<?= base_url('manager/hapus_data/') . $pegawai->id_pegawai ?>" class="btn btn-danger">Hapus Data</a>
                                             </div>
                                         </div>
                                     </div>

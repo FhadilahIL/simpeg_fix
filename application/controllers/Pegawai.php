@@ -139,8 +139,8 @@ class Pegawai extends CI_Controller
             ['Berita', base_url('pegawai/data_berita'), '', 'fa-newspaper']
         ];
 
-        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $data['data_cuti'] = $this->Cuti->tampil_cuti_pegawai($this->session->userdata('id'))->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -335,6 +335,60 @@ class Pegawai extends CI_Controller
             $this->load->helper('updatesession');
             updateSession(['nama' => $user['nama']]);
             redirect(base_url('pegawai/data_pribadi/') . $nik);
+        }
+    }
+
+    function ajukan_cuti()
+    {
+        $detail_user = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $id_pegawai = $this->input->post('id_pegawai');
+        $id_cuti = $this->input->post('jenis_cuti');
+        $awal_cuti = $this->input->post('awal_cuti');
+        $cari_cuti = $this->Cuti->cari_cuti($id_cuti)->row();
+        $jumlah_hari = $cari_cuti->jumlah_cuti;
+
+        if ($id_cuti != '1') {
+            $akhir_cuti = date('Y-m-d', strtotime('+' . $jumlah_hari . ' days', strtotime($awal_cuti)));
+            $data = [
+                'id_cuti'           => $id_cuti,
+                'id_pegawai'        => $id_pegawai,
+                'id_cutipegawai'    => '',
+                'awal_cuti'         => $awal_cuti,
+                'akhir_cuti'        => $akhir_cuti,
+                'keterangan'        => $this->input->post('keterangan'),
+                'status'            => 'Pending'
+            ];
+        }
+
+        $cari_akhir_cuti = $this->Cuti->cari_cuti_akhir($this->session->userdata('id'))->row();
+        if ((date('m', strtotime($awal_cuti)) == date('m', strtotime($cari_akhir_cuti->akhir_cuti))) && (date('Y', strtotime($awal_cuti)) == date('Y', strtotime($cari_akhir_cuti->akhir_cuti)))) {
+            $this->session->set_flashdata('pesan_gagal', 'Anda Sudah Mengajukan Cuti Dibulan Ini');
+            redirect('pegawai/detail_cuti');
+        } else {
+            if ($cari_akhir_cuti->status != 'Pending') {
+                if ($detail_user->jenis_kelamin != NULL) {
+                    if ($detail_user->jenis_kelamin == 'P') {
+                        $this->Cuti->simpan_cuti($data);
+                        $this->session->set_flashdata('pesan_berhasil', 'Cuti Berhasil Diajukan. Silahkan Tunggu Persetujuan dari Manager');
+                        redirect('pegawai/detail_cuti');
+                    } else {
+                        if ($id_cuti != '3') {
+                            $this->Cuti->simpan_cuti($data);
+                            $this->session->set_flashdata('pesan_berhasil', 'Cuti Berhasil Diajukan. Silahkan Tunggu Persetujuan dari Manager');
+                            redirect('pegawai/detail_cuti');
+                        } else {
+                            $this->session->set_flashdata('pesan_gagal', 'Anda Lelaki, Masa Mau lahiran');
+                            redirect('pegawai/detail_cuti');
+                        }
+                    }
+                } else {
+                    $this->session->set_flashdata('pesan_gagal', 'Silahkan Lengkapi Data Di My Profile');
+                    redirect('pegawai/detail_cuti');
+                }
+            } else {
+                $this->session->set_flashdata('pesan_gagal', 'Silahkan tunggu Konfirmasi Manager');
+                redirect('pegawai/detail_cuti');
+            }
         }
     }
 }

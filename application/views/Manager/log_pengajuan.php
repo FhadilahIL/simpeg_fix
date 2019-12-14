@@ -3,11 +3,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Data Cuti</h1>
-            </div>
-
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <a href="tambah_cuti" class="btn btn-primary">Ajukan Cuti</a>
+                <h1 class="h3 mb-0 text-gray-800">Data Histori Pengajian Cuti</h1>
             </div>
 
             <?php if ($this->session->flashdata('pesan_berhasil')) { ?>
@@ -25,7 +21,6 @@
                     </button>
                 </div>
             <?php } ?>
-
             <!-- Content Row -->
             <div class="row">
 
@@ -37,10 +32,12 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col" class="nik">NIK</th>
+                                <th scope="col" class="nama-pegawai">Nama Pegawai</th>
                                 <th scope="col" class="tanggal">Awal Cuti</th>
                                 <th scope="col" class="tanggal">Akhir Cuti</th>
-                                <th scope="col" class="tanggal">Keterangan</th>
-                                <th scope="col" class="status">Status</th>
+                                <th scope="col" class="jenis-cuti">Jenis Cuti</th>
+                                <th scope="col" class="keterangan-cuti">Keterangan</th>
+                                <th scope="col" class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,16 +45,18 @@
                             foreach ($data_cuti as $cuti) { ?>
                                 <tr>
                                     <td scope="row"><?= $no++ ?>.</td>
-                                    <td><?= $cuti->jenis_cuti ?></td>
+                                    <td><?= $cuti->nik ?></td>
+                                    <td><?= $cuti->nama ?></td>
                                     <td><?= $cuti->awal_cuti ?></td>
                                     <td><?= $cuti->akhir_cuti ?></td>
+                                    <td><?= $cuti->jenis_cuti ?></td>
                                     <td><?= $cuti->keterangan ?></td>
                                     <?php if ($cuti->status == "Ditolak") { ?>
                                         <td class="bg-danger"><a class="text-light" tabindex="0" data-trigger="focus" title="Alasan Mengapa Ditolak" data-container="body" role="button" data-toggle="popover" data-placement="left" data-content="<?= $cuti->alasan ?>"><?= $cuti->status ?></a></td>
                                     <?php } else if ($cuti->status == "Diterima") { ?>
                                         <td class="bg-success"><a class="text-light" tabindex="0" data-trigger="focus" title="Cie Diterima" data-container="body" role="button" data-toggle="popover" data-placement="left" data-content="<?= $cuti->alasan ?>"><?= $cuti->status ?></a></td>
                                     <?php } else { ?>
-                                        <td class="bg-warning"><a class="text-light" tabindex="0" data-trigger="focus" title="Pesan" data-container="body" role="button" data-toggle="popover" data-placement="left" data-content="Silahkan tunggu Konfirmasi Dari Manager Anda"><?= $cuti->status ?></a></td>
+                                        <td class="bg-warning text-light"><?= $cuti->status ?></td>
                                     <?php } ?>
                                 </tr>
                             <?php } ?>

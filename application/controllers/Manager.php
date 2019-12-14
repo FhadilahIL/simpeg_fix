@@ -9,6 +9,7 @@ class Manager extends CI_Controller
         $this->load->model('User');
         $this->load->model('News');
         $this->load->model('Divisi');
+        $this->load->model('Cuti');
         $this->load->helper('updatesession_helper');
         if ($this->session->userdata('role') != 3) {
             redirect('auth/cek_session');
@@ -155,6 +156,15 @@ class Manager extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    function hapus_data($id_pegawai)
+    {
+        $id_pegawai = $this->uri->segment(3);
+        if ($this->User->delete_data($id_pegawai)) {
+            $this->session->set_flashdata('pesan_berhasil', 'Berhasil Menghapus Data');
+            redirect('manager/data_pegawai');
+        }
+    }
+
     function data_cuti()
     {
         $data['judul_halaman'] = "Manager - Data Cuti";
@@ -168,6 +178,8 @@ class Manager extends CI_Controller
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $data['data_cuti'] = $this->Cuti->tampil_cuti_manager($this->session->userdata('id_divisi'))->result();
+        $data['bulan'] = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -352,5 +364,55 @@ class Manager extends CI_Controller
         $this->load->view('templates/navbar', $data);
         $this->load->view('manager/data_pegawai_dicari');
         $this->load->view('templates/footer');
+    }
+
+    function log_pengajuan()
+    {
+        $data['judul_halaman'] = "Manager - Log Pengajuan Cuti";
+        $data['active'] = "";
+        $data['dashboard'] = base_url('manager');
+        $data['data_pribadi'] = base_url('manager/data_pribadi');
+        $data['menu'] = [
+            ['Data Pegawai', base_url('manager/data_pegawai'), 'active', 'fa-user'],
+            ['Cuti', base_url('manager/data_cuti'), '', 'fa-calendar-alt'],
+            ['Berita', base_url('manager/data_berita'), '', 'fa-newspaper']
+        ];
+
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $data['data_cuti'] = $this->Cuti->tampil_cuti_log($this->session->userdata('id_divisi'), $bulan, $tahun)->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/navbar', $data);
+        $this->load->view('manager/log_pengajuan', $data);
+        $this->load->view('templates/footer');
+    }
+
+    function terima_cuti($id_cutipegawai)
+    {
+        $id_cutipegawai = $this->uri->segment(3);
+        $data = [
+            'status'    => 'Diterima',
+            'alasan'    => 'Selamat Menikmati Liburan'
+        ];
+        if ($this->Cuti->terima_cuti($id_cutipegawai, $data)) {
+            $this->session->set_flashdata('pesan_berhasil', 'Cuti Berhasil Diterima');
+            redirect('manager/data_cuti');
+        }
+    }
+
+    function tolak_cuti($id_cutipegawai)
+    {
+        $id_cutipegawai = $this->uri->segment(3);
+        $data = [
+            'status'    => 'Ditolak',
+            'alasan'    => $this->input->post('alasan')
+        ];
+        if ($this->Cuti->tolak_cuti($id_cutipegawai, $data)) {
+            $this->session->set_flashdata('pesan_berhasil', 'Cuti Berhasil Ditolak');
+            redirect('manager/data_cuti');
+        }
     }
 }

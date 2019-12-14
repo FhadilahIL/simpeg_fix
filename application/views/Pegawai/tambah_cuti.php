@@ -5,11 +5,11 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Tambah Cuti</h1>
             </div>
-            <form action="" method="post" id="form-cuti">
+            <form action="<?= base_url('pegawai/ajukan_cuti') ?>" method="post" id="form-cuti">
                 <div class="form-group">
                     <label for="exampleInputEmail1">NIK</label>
-                    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->nik ?>" readonly>
+                    <input type="hidden" name="id_pegawai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
+                    <input type="text" name="nik" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->nik ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Jenis Cuti</label>
@@ -23,7 +23,6 @@
                 <div id="element-cuti">
 
                 </div>
-
                 <div class="form-group">
                     <button id="ajukan" type="submit" class="btn btn-primary btn-block" disabled>Ajukan Cuti</button>
                 </div>
@@ -51,12 +50,12 @@
                         let html = '';
                         html += `<div class="form-group" id="tgl_awal">
                                 <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
-                                <input type="date" class="form-control" id="exampleInputTanggal">
+                                <input type="date" class="form-control" name="awal_cuti" id="exampleInputTanggal">
                             </div>
                             <div class="form-group" id="tgl_akhir"></div>
                             <div class="form-group" id="keterangan">
                                 <label for="exampleInputEmail1">Keterangan</label>
-                                <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                                <textarea type="text" class="form-control" name="keterangan" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
                             </div>`;
                         elemenCuti.innerHTML = html;
                         ajukan.disabled = false;
@@ -64,15 +63,15 @@
                         let html = '';
                         html += `<div class="form-group" id="tgl_awal">
                             <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
-                            <input type="date" class="form-control" id="exampleInputTanggal">
+                            <input type="date" class="form-control" name="awal_cuti" id="exampleInputTanggal">
                         </div>
                         <div class="form-group" id="tgl_akhir">
                             <label for="exampleInputEmail1">Tanggal Akhir Cuti</label>
-                            <input type="date" class="form-control" id="exampleInputTanggal">
+                            <input type="date" class="form-control" name="akhir_cuti" id="exampleInputTanggal">
                         </div>
                         <div class="form-group" id="keterangan">
                             <label for="exampleInputEmail1">Keterangan</label>
-                            <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                            <textarea type="text" class="form-control" name="keterangan" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
                         </div>`;
                         elemenCuti.innerHTML = html;
                         ajukan.disabled = false;

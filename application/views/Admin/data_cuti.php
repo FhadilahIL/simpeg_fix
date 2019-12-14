@@ -8,9 +8,25 @@
 
             <!-- Content Row -->
             <div class="row">
-                <div class="col mb-3">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah_cuti">Ajukan Cuti</button>
+                <div class="col">
+                    <button type="button" class="mb-3 btn btn-primary" data-toggle="modal" data-target="#tambah_cuti">Ajukan Cuti</button>
+                    <?php if ($this->session->flashdata('pesan_berhasil')) { ?>
+                        <div class="alert alert-success alert-dismissible fade show font-notify" role="alert">
+                            <strong>Success!!!</strong> <?= $this->session->flashdata('pesan_berhasil') ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } elseif ($this->session->flashdata('pesan_gagal')) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show font-notify" role="alert">
+                            <strong>Failed!!!</strong> <?= $this->session->flashdata('pesan_gagal') ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php } ?>
                 </div>
+
 
                 <!-- Modal Tambah Cuti -->
                 <div class="modal fade" id="tambah_cuti" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -23,36 +39,26 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">NIK</label>
-                                    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->nik ?>" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Jenis Cuti</label>
-                                    <select id="inputState" class="form-control" name="jenis_cuti">
-                                        <?php foreach ($jenis_cuti as $jenis) { ?>
-                                            <option value="<?= $jenis->id_cuti ?>"><?= $jenis->jenis_cuti ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
-                                        <input type="date" class="form-control" id="exampleInputTanggal">
+                                <form action="<?= base_url('admin/ajukan_cuti') ?>" method="post">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">NIK</label>
+                                        <input type="hidden" name="id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->id_pegawai ?>">
+                                        <input type="text" name="nik" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan NIK" value="<?= $user->nik ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Tanggal AKhir Cuti</label>
-                                        <input type="date" class="form-control" id="exampleInputTanggal">
+                                        <label for="exampleInputEmail1">Jenis Cuti</label>
+                                        <select id="cuti" class="form-control" name="jenis_cuti">
+                                            <option value="kosong">-- Pilih Jenis Cuti --</option>
+                                            <?php foreach ($jenis_cuti as $jenis) { ?>
+                                                <option value="<?= $jenis->id_cuti ?>"><?= $jenis->jenis_cuti ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Keterangan</label>
-                                        <textarea type="text" class="form-control" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Ajukan Cuti</button>
-                                </div>
+                                    <div id="element-cuti"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Ajukan Cuti</button>
+                            </div>
                             </form>
                         </div>
                     </div>
@@ -73,17 +79,74 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="row">1.</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>22/09/2019</td>
-                                <td>23/09/2019</td>
-                                <td>Pending</td>
-                            </tr>
+                            <?php $no = 1;
+                            foreach ($data_cuti as $cuti) { ?>
+                                <tr>
+                                    <td scope="row"><?= $no++ ?>.</td>
+                                    <td><?= $cuti->nik ?></td>
+                                    <td><?= $cuti->nama ?></td>
+                                    <td><?= $cuti->awal_cuti ?></td>
+                                    <td><?= $cuti->akhir_cuti ?></td>
+                                    <?php if ($cuti->status == "Ditolak") { ?>
+                                        <td class="bg-danger"><a class="text-light" tabindex="0" data-trigger="focus" title="Alasan Mengapa Ditolak" data-container="body" role="button" data-toggle="popover" data-placement="left" data-content="<?= $cuti->alasan ?>"><?= $cuti->status ?></a></td>
+                                    <?php } else if ($cuti->status == "Diterima") { ?>
+                                        <td class="bg-success"><a class="text-light" tabindex="0" data-trigger="focus" title="Cie Diterima" data-container="body" role="button" data-toggle="popover" data-placement="left" data-content="<?= $cuti->alasan ?>"><?= $cuti->status ?></a></td>
+                                    <?php } else { ?>
+                                        <td class="bg-warning"><a class="text-light" tabindex="0" data-trigger="focus" title="Pesan" data-container="body" role="button" data-toggle="popover" data-placement="left" data-content="Silahkan tunggu Konfirmasi Dari Manager Anda"><?= $cuti->status ?></a></td>
+                                    <?php } ?>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
         <!-- /.container-fluid -->
+
+        <script>
+            let cuti = document.getElementById('cuti');
+            let ajukan = document.getElementById('ajukan');
+            let elemenCuti = document.getElementById('element-cuti');
+            cuti.addEventListener('change', () => {
+                let tgl_awal = document.getElementById('tgl_awal');
+                let tgl_akhir = document.getElementById('tgl_akhir');
+                let keterangan = document.getElementById('keterangan');
+                if (cuti.value === 'kosong') {
+                    elemenCuti.removeChild(tgl_awal)
+                    elemenCuti.removeChild(tgl_akhir)
+                    elemenCuti.removeChild(keterangan)
+                    ajukan.disabled = true;
+                } else {
+                    if (cuti.value !== '1') {
+                        let html = '';
+                        html += `<div class="form-group" id="tgl_awal">
+                                <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
+                                <input type="date" class="form-control" name="awal_cuti" id="exampleInputTanggal">
+                            </div>
+                            <div class="form-group" id="tgl_akhir"></div>
+                            <div class="form-group" id="keterangan">
+                                <label for="exampleInputEmail1">Keterangan</label>
+                                <textarea type="text" class="form-control" name="keterangan" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                            </div>`;
+                        elemenCuti.innerHTML = html;
+                        ajukan.disabled = false;
+                    } else {
+                        let html = '';
+                        html += `<div class="form-group" id="tgl_awal">
+                            <label for="exampleInputEmail1">Tanggal Awal Cuti</label>
+                            <input type="date" class="form-control" name="awal_cuti" id="exampleInputTanggal">
+                        </div>
+                        <div class="form-group" id="tgl_akhir">
+                            <label for="exampleInputEmail1">Tanggal Akhir Cuti</label>
+                            <input type="date" class="form-control" name="akhir_cuti" id="exampleInputTanggal">
+                        </div>
+                        <div class="form-group" id="keterangan">
+                            <label for="exampleInputEmail1">Keterangan</label>
+                            <textarea type="text" class="form-control" name="keterangan" id="exampleInputAlasan" placeholder="Isi Alasan Mengapa Anda ingin Mengajukan Cuti" rows="5"></textarea>
+                        </div>`;
+                        elemenCuti.innerHTML = html;
+                        ajukan.disabled = false;
+                    }
+                }
+            })
+        </script>

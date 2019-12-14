@@ -125,4 +125,10 @@ class User extends CI_Model
         $this->db->where('nik', $nik);
         return $this->db->update('users', $data);
     }
+
+    function delete_data($id_pegawai)
+    {
+        $this->db->where('id_pegawai', $id_pegawai);
+        return $this->db->delete('users');
+    }
 }

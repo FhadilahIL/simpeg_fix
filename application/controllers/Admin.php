@@ -36,7 +36,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -58,7 +58,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -83,7 +83,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -108,11 +108,13 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), 'active', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
         $data['jenis_cuti'] = $this->Cuti->get_cuti()->result();
+        $data['data_cuti'] = $this->Cuti->tampil_cuti_admin($this->session->userdata('id_divisi'))->result();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -130,7 +132,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -154,7 +156,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
 
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
@@ -177,7 +179,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
 
         $nik = $this->uri->segment(3);
@@ -240,7 +242,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -262,7 +264,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), 'active', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -285,7 +287,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
 
         $nik = $this->uri->segment(3);
@@ -629,7 +631,7 @@ class Admin extends CI_Controller
             ['Data Pegawai', base_url('admin/data_pegawai'), 'active', 'fa-user'],
             ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
             ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
-            ['Data Divisi', base_url('admin/tambah_divisi'), '', 'fa-newspaper']
+            ['Data Divisi', base_url('admin/data_divisi'), '', 'fa-newspaper']
         ];
         $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
@@ -648,6 +650,30 @@ class Admin extends CI_Controller
         redirect('admin/cari_data/' . $nik);
     }
 
+    function data_divisi()
+    {
+        $data['judul_halaman'] = "Admin - Tambah Divisi";
+        $data['active'] = "";
+        $data['dashboard'] = base_url('admin');
+        $data['data_pribadi'] = base_url('admin/data_pribadi');
+
+        $data['menu'] = [
+            ['Data Pegawai', base_url('admin/data_pegawai'), '', 'fa-user'],
+            ['Cuti', base_url('admin/data_cuti'), '', 'fa-calendar-alt'],
+            ['Berita', base_url('admin/data_berita'), '', 'fa-newspaper'],
+            ['Data Divisi', base_url('admin/data_divisi'), 'active', 'fa-newspaper']
+        ];
+
+        $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $data['data_divisi'] = $this->Divisi->get_divisi()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/navbar', $data);
+        $this->load->view('admin/data_divisi');
+        $this->load->view('templates/footer');
+    }
+
     function tambah_divisi()
     {
         $data['judul_halaman'] = "Admin - Tambah Divisi";
@@ -662,8 +688,8 @@ class Admin extends CI_Controller
             ['Data Divisi', base_url('admin/data_divisi'), 'active', 'fa-newspaper']
         ];
 
-        $data['user'] = $this->User->cari_user($this->session->userdata('nik'))->row();
         $data['detail_user'] = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/navbar', $data);
@@ -682,10 +708,64 @@ class Admin extends CI_Controller
         if ($nama_divisi != '') {
             $this->Divisi->tambah_divisi($data);
             $this->session->set_flashdata('pesan_berhasil', 'Berhasil Menambahkan Divisi');
-            redirect(base_url('admin/tambah_divisi'));
+            redirect(base_url('admin/data_divisi'));
         } else {
             $this->session->set_flashdata('pesan_gagal', 'Gagal Menambahkan Divisi. Nama Harus Diisi');
-            redirect(base_url('admin/tambah_divisi'));
+            redirect(base_url('admin/data_divisi'));
+        }
+    }
+
+    function ajukan_cuti()
+    {
+        $detail_user = $this->User->cari_detail_user($this->session->userdata('id'))->row();
+        $id_pegawai = $this->input->post('id');
+        $id_cuti = $this->input->post('jenis_cuti');
+        $awal_cuti = $this->input->post('awal_cuti');
+        $cari_cuti = $this->Cuti->cari_cuti($id_cuti)->row();
+        $jumlah_hari = $cari_cuti->jumlah_cuti;
+
+        if ($id_cuti != '1') {
+            $akhir_cuti = date('Y-m-d', strtotime('+' . $jumlah_hari . ' days', strtotime($awal_cuti)));
+            $data = [
+                'id_cuti'           => $id_cuti,
+                'id_pegawai'        => $id_pegawai,
+                'id_cutipegawai'    => '',
+                'awal_cuti'         => $awal_cuti,
+                'akhir_cuti'        => $akhir_cuti,
+                'keterangan'        => $this->input->post('keterangan'),
+                'status'            => 'Pending'
+            ];
+        }
+        $cari_akhir_cuti = $this->Cuti->cari_cuti_akhir($this->session->userdata('id'))->row();
+
+        if (empty($awal_cuti)) {
+            $this->session->set_flashdata('pesan_gagal', 'Anda Harus Mengisi Form yang Telah Disediakan');
+            redirect('admin/data_cuti');
+        } else {
+            if ((date('m', strtotime($awal_cuti)) == date('m', strtotime($cari_akhir_cuti->akhir_cuti))) && (date('Y', strtotime($awal_cuti)) == date('Y', strtotime($cari_akhir_cuti->akhir_cuti)))) {
+                $this->session->set_flashdata('pesan_gagal', 'Anda Sudah Mengajukan Cuti Dibulan Ini');
+                redirect('admin/data_cuti');
+            } else {
+                if ($cari_akhir_cuti->status != 'Pending') {
+                    if ($detail_user->jenis_kelamin == 'P') {
+                        $this->Cuti->simpan_cuti($data);
+                        $this->session->set_flashdata('pesan_berhasil', 'Cuti Berhasil Diajukan. Silahkan Tunggu Persetujuan dari Manager');
+                        redirect('admin/data_cuti');
+                    } else {
+                        if ($id_cuti != '3') {
+                            $this->Cuti->simpan_cuti($data);
+                            $this->session->set_flashdata('pesan_berhasil', 'Cuti Berhasil Diajukan. Silahkan Tunggu Persetujuan dari Manager');
+                            redirect('admin/data_cuti');
+                        } else {
+                            $this->session->set_flashdata('pesan_gagal', 'Anda Lelaki, Masa Mau lahiran');
+                            redirect('admin/data_cuti');
+                        }
+                    }
+                } else {
+                    $this->session->set_flashdata('pesan_gagal', 'Silahkan tunggu Konfirmasi Manager. Pengajuan Sebelumnya Belum di Konfirmasi');
+                    redirect('admin/data_cuti');
+                }
+            }
         }
     }
 }

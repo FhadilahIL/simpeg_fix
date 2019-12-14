@@ -103,9 +103,45 @@
   	margin-top: 10%;
   }
 
+  .no {
+  	width: 70px;
+  }
+
+  .tanggal {
+  	min-width: 150px;
+  }
+
+  .jenis-cuti {
+  	min-width: 200px;
+  }
+
+  .keterangan-cuti {
+  	min-width: 750px;
+  }
+
+  .aksi {
+  	min-width: 200px;
+  }
+
   @media (max-width: 992px) {
   	body {
   		font-size: 11pt !important;
+  	}
+
+  	.jenis-cuti {
+  		min-width: 200px;
+  	}
+
+  	.status {
+  		min-width: 120px;
+  	}
+
+  	.tanggal {
+  		min-width: 100px;
+  	}
+
+  	.nama-divisi {
+  		min-width: 300px;
   	}
 
   	.detail {
@@ -138,6 +174,7 @@
   		margin-left: 2%;
   		margin-top: 1px;
   	}
+
 
   	.keterangan-manager {
   		min-width: 250px;
